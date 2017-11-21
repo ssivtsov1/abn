@@ -1,0 +1,48 @@
+table.info_head { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.info_head td { padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.header_abon { border-collapse:collapse; font-family: "Times New Roman"; font-size: 12px; font-weight:bold;}
+table.header_abon td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 14px;}
+
+table.info_abon { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.info_abon td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.info_abon { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.info_abon td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.stat1 { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.stat1 td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.stat2 { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.stat2 td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.stat3 { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.stat3 td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.stat4 { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.stat4 td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+table.stat5 { border-collapse:collapse; font-family: "Times New Roman"; font-size: 11px; font-weight:normal;}
+table.stat5 td { border: 0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; height: 12px;}
+
+p { font-family: 'Times New Roman', Times, serif;  }
+p.p1 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 11px; line-height: 12px;font-weight: bold;}
+p.p2 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 11px; line-height: 12px;font-weight: normal;}
+p.p3 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 11px; line-height: 12px;font-weight: bold;}
+p.p4 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 8px; line-height: 10px;font-weight: normal;}
+p.p5 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 9px; line-height: 10px;font-weight: normal;}
+p.p6 {margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-size: 11px; line-height: 12px;font-weight: bold;}
+
+.halfpage {float:left; width:13.2cm; page-break-inside: avoid;} 
+.center_page {float:left; width:0.5cm; page-break-inside: avoid;} 
+
+@page {margin-left:0.5cm; margin-right:0.5cm;}
+
+/* 
+@media print {
+
+    table.warning_body { width:100%; border: none;  border-collapse:collapse; 
+                   font-family: 'Times New Roman', Times, serif; font-size: 11px;page-break-inside: avoid;}
+
+}
+ */

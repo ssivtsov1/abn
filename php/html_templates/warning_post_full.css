@@ -1,0 +1,63 @@
+    .vertical{
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        white-space: nowrap;
+        margin:110px 0px 0px 0px ;      
+        display:inline-block;
+        text-align:  center;
+        width:20px;
+ 
+    } 
+    .vert{
+        word-wrap: break-word;    
+    }
+
+    table{
+        margin: auto;
+        table-layout:fixed;
+        font-family:Arial;
+        border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0;
+    }
+    
+    table th{
+        font-weight:normal;
+        height: 130px;     
+        margin:0px;
+        font-size:12px;
+        text-align:center;
+        border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;
+    }
+    tr:nth-child(2) {
+        font-size:13px;
+        text-align:center;
+        font-weight:bold;
+   } 
+
+
+table.warning_table td { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0; }
+
+
+/*
+
+table.warning_table { border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0; font-family: "Arial"; font-size: 9px; font-weight:normal;}
+table.warning_table td { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; }
+table.warning_table th { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 12px; }
+
+.tab_main_head {font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.tab_head {font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.table_footer{font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.table_str {font-family: "Arial"; font-size: 8px; }
+*/
+@page {margin-left:1cm; margin-right:0.5cm;}
+
+@media print {
+/* style sheet for print goes here */
+
+    table.warning_table { width:100%; border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0; font-family: "Arial"; font-size: 9px; font-weight:normal;}
+
+}
+
+ 

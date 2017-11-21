@@ -1,0 +1,34 @@
+
+table.recalc_table { border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0; font-family: "Arial"; font-size: 12px; font-weight:normal;}
+table.recalc_table td { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 14px; }
+table.recalc_table th { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 14px; font-weight:normal;}
+
+
+p.warning_p {font-family: 'Times New Roman', Times, serif; font-size: 14px; line-height: 16px; text-indent: 10px; margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px;}
+
+p.warning_p2 {margin-top:5px; margin-bottom: 1px; }
+p.warning_pb {text-indent: 30px; margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-weight: bold;}
+p { font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 12px; }
+
+.header1 { font-family: 'Times New Roman', Times, serif; font-size: 11px; line-height: 14px; text-decoration: underline; }
+.header2 { font-family: 'Times New Roman', Times, serif; font-size: 14px; line-height: 20px; font-weight: bold; }
+.header3 { font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 14px; }
+ 
+
+.warning_header {margin-top:5px; margin-bottom: 1px; font-weight: bold;}
+
+.span_under{
+      display: inline-block; 
+      border-bottom: 1px solid black;        
+      font-size: 14px;
+    }
+ 
+    
+.span_under_12{
+      font-size: 14px; line-height: 16px;
+      display: inline-block; 
+      border-bottom: 1px solid black;        
+    }
+    
+@page {margin-left:0.5cm; margin-right:0.5cm;}
+ 

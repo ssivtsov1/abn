@@ -1,0 +1,23 @@
+
+table.warning_body { border: none;  border-collapse:collapse; font-family: 'Times New Roman', Times, serif; 
+               font-size: 12px; page-break-inside: avoid; margin-bottom:1px }
+table.warning_body td { padding-top:1px; padding-bottom: 1px; padding-left:1px;padding-right:1px; }
+
+
+p.warning_p {text-indent: 30px; margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px;}
+p.warning_p2 {margin-top:5px; margin-bottom: 1px; }
+p.warning_pb {text-indent: 30px; margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-weight: bold;}
+p { font-family: 'Times New Roman', Times, serif; font-size: 11px; line-height: 12px; }
+
+
+.warning_header {margin-top:5px; margin-bottom: 1px; font-weight: bold;}
+
+@page {margin-left:0.5cm; margin-right:0.5cm;}
+
+@media print {
+/* style sheet for print goes here */
+    table.warning_body { width:100%; border: none;  border-collapse:collapse; 
+                   font-family: 'Times New Roman', Times, serif; font-size: 11px;page-break-inside: avoid;}
+
+}
+ 

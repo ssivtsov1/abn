@@ -1,0 +1,1 @@
+[{"id":"51667","id_pack":"26","indic":"3000","dt_indic":"22.11.2016","indic_real":"","act_num":""},{"id":"51668","id_pack":"26","indic":"5890","dt_indic":"22.11.2016","indic_real":"","act_num":""}]

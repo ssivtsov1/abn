@@ -1,0 +1,22 @@
+body {
+ background:#6B8E55;
+ margin:0 auto;
+ padding:0;}
+
+#login {margin:0 auto;
+        margin-top:120px; 
+        padding-left:20px; 
+        border: solid 10px #9ACD32; 
+        height:230px; 
+        width:360px; 
+        background-color:#556B2F;
+        font: 100% Arial; font-weight:600;
+        color: #FFD700;}
+
+#login_tbl {
+	    color: #FFD700;
+            font: 100% Arial; font-weight:700;
+            }
+
+
+

@@ -1,0 +1,1 @@
+[{"id":"300101293","id_pack":"300000018","indic":"5600","dt_indic":"01.03.2017","id_operation":"2","indic_real":""}]

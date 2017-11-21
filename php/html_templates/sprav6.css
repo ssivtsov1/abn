@@ -1,0 +1,52 @@
+    table{
+        margin: auto;
+        margin-bottom:5px;
+        table-layout:fixed;
+        font-family:Arial;
+        font-weight:normal;
+        font-size:12px;
+        border-bottom: solid black 1px;
+        border-collapse: collapse;       
+    }    
+    table th{
+        font-weight:normal;
+        margin:0px;
+        padding:0px;
+        text-align:center;
+        border: solid black 1px;      
+    }    
+    table tr{
+        font-weight:normal;
+        margin:0px;
+        padding:0px;
+        text-align:left;
+        border: solid black 1px;      
+    }    
+
+    table td{
+        margin:0px;
+        padding-top:0px;
+        padding-bottom:0px;
+        padding-left: 15px;             
+        border: solid black 1px;      
+    }
+    .head{
+        font-family:Arial;
+        font-size:12px; 
+        font-weight:bold;
+    }    
+    .shtamp{
+        font-family:Arial;
+        text-align: center;
+        font-size:12px; 
+        margin:2px;
+        float:right;
+    }
+    .rows{
+        font-family:Arial;
+        font-size:12px; 
+        font-weight:normal;
+        text-align:left;          
+        float:left;
+    }
+    @page {margin-left:1cm; margin-right:1cm;}

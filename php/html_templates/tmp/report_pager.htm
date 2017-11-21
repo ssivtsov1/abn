@@ -1,0 +1,162 @@
+
+    <form id='freps_params' name='reps_params' method='post' action='rep_main_build_html.php' target='' class ='no-print' >
+        
+        <DIV style='display:none;' >
+            <input type='text' name='template_name' id='ftemplate_name' value='{$template_name}' />      
+            <input type='text' name='oper' id='foper' value='{$oper}' />      
+            
+            <p>
+                Період
+                <input  name='period_str' type='text' id = 'fperiod_str' size='30' value= '{$pp_period_str}' readonly />
+                З  
+                <input name='dt_b' type='text' size='10' class='dtpicker' id ='fdt_b' value= '{$pp_dt_b}' />
+                По     
+                <input name='dt_e' type='text' size='10' class='dtpicker' id ='fdt_e' value= '{$pp_dt_e}' />                
+
+            </p>
+            <p>
+                <label>На дату &nbsp &nbsp
+                    <input name='dt_rep' type='text' size='10' class='dtpicker' id ='fdt_rep' value= '{$pp_dt_rep}' />
+                </label> 
+                
+                <label>За рік &nbsp &nbsp
+                    <input name='year_rep' type='text' size='10' id ='fyear_rep' value= '{$pp_year_rep}' />
+                </label> 
+                
+            </p>
+            <p>
+                <label>Сума &nbsp &nbsp
+                    <input name='sum_value' type='text' id = 'fsum_value' size='10' value= '{$pp_sum_value}'/>
+                </label> 
+                &nbsp;&nbsp;                                
+                <input name='sum_direction' type='text' id = 'fsum_direction' size='10' value= '{$pp_sum_direction}'/>
+                <label>Борг тривалістю &nbsp &nbsp
+                    <input name='debet_month' type='text' id = 'fdebet_month' size='5' value= '{$pp_debet_month}' />
+                </label> 
+                
+            </p>            
+            <p>
+                <input name='id_gtar' type='hidden' id = 'fid_gtar' size='10' value= '{$pp_id_gtar}' />    
+                <label> 
+                    Тариф  
+                    <input name='gtar' type='text' id = 'fgtar' size='60' value= '{$pp_gtar}'  readonly />
+                </label> 
+            </p>                         
+            <p>            
+                <input type='hidden' name='id_type_meter' id = 'fid_type_meter' size='10' value= '{$pp_id_type_meter}'  /> 
+                <input type='hidden' name='id_type_meter_array' id = 'fid_type_meter_array' size='10' value= '{$pp_id_type_meter_array}'  /> 
+                <label>Тип приладу обліку
+                <input  name='type_meter' type='text' id = 'ftype_meter'  value= '{$pp_type_meter}'  readonly  />
+                </label> &nbsp;
+            
+            <p>
+                <input name='addr_town' type='hidden' id = 'faddr_town' size='10' value= '{$pp_addr_town}' />    
+                <label >Населений пункт
+                    <input  name='addr_town_name' type='text' id = 'faddr_town_name' size='50' value= '{$pp_addr_town_name}'  readonly />
+                </label> 
+
+                <label id ='ltown_detal'><input type='checkbox' name='town_detal' id='ftown_detal' value='1' $town_detal_ch /> Друкувати підсумки по нас.пунктах </label>
+            </p>
+            <p>
+                <input name='id_paccnt' type='hidden' id = 'fid_paccnt' size='10' value= '{$pp_id_paccnt}' />    
+                <label>Книга/особовий рахунок &nbsp &nbsp
+                    <input name='book' type='text' id = 'fbook' size='5' value= '{$pp_book}' />
+                </label> 
+                <label> /
+                    <input name='code' type='text' id = 'fcode' size='10' value= '{$pp_code}' />
+                </label>                 
+
+                <input  name='paccnt_name' type='text' id = 'fpaccnt_name' size='70' value= '{$pp_paccnt_name}'  readonly />
+                <label><input type='checkbox' name='rem_worker' id='frem_worker' value='1' $rem_worker_ch /> Працівники РЕМ</label>
+            </p>            
+
+            <p>            
+                <input name='id_sector' type='hidden' id = 'fid_sector' size='10' value= '{$pp_id_sector}' />    
+                <label >Дільниця
+                    <input name='sector' type='text' id = 'fsector' size='50' value= '{$pp_sector}'  readonly />
+                </label> 
+
+                <label>Район
+                     <input name='id_region' type='text' id = 'fid_region'  value= '{$pp_id_region}' />
+                </label> 
+
+            </p>
+            
+            <p>
+                <input name='id_grp_lgt' type='hidden' id = 'fid_grp_lgt' size='10' value= '{$pp_id_grp_lgt}' />    
+                <label> Пільга
+                    <input name='grp_lgt' type='text' id = 'fgrp_lgt' size='70' value= '{$pp_grp_lgt}'  readonly />
+                </label> 
+
+                &nbsp;&nbsp;                                
+                <label>Кількість пільговиків &nbsp &nbsp
+                    <input name='family_cnt' type='text' id = 'ffamily_cnt' size='5' value= '{$pp_family_cnt}'  />
+                </label>                 
+                
+            </p>
+            <p>            
+                <input name='id_person' type='hidden' id = 'fid_person' size='10' value= '{$pp_id_person}' />
+                <label>Працівник
+                  <input name='person' type='text' id = 'fperson' size='40' value= '{$pp_person}' />
+                </label> 
+
+             
+             <label><input type='checkbox' name='sum_only' id='fsum_only' value='1' $sum_only_ch /> Тільки підсумки</label> 
+                
+             <label><input type='checkbox' name='show_pager' id='fshow_pager' value='1' $show_pager_ch /> Показувать сторінками</label>              
+             
+             <label><input type='checkbox' name='old_years' id='fold_years' value='1' $old_years_ch /> Тільки попередні роки</label> 
+             
+             <label><input type='checkbox' name='oldbill_only' id='foldbill_only' value='1'  $oldbill_only_ch/> Без рахунків поточного місяця</label>
+            </p>
+            
+            <p>       
+                 <label>Походження показників
+                     <input name='id_operation' id = 'fid_operation' size='10' value='{$pp_id_operation}'  />
+                 </label> 
+            </p>                
+
+            <p>       
+                 <label>Дод.ознака
+                     <input name='id_cntrl' id = 'fid_cntrl' size='10' value='{$pp_id_cntrl}'  />
+                 </label> 
+            </p>                
+
+            <p>       
+                 <label>Тип завдання
+                     <input name='idk_work' id = 'fidk_work' size='10' value='{$pp_idk_work}'  />
+                 </label> 
+            </p>                
+            
+            <div>
+                <input name='note' type='text' id = 'fnote' size='70' value= '{$pp_note}'  /> 
+            </div>
+            
+            <input type='hidden' name='grid_params' id='fgrid_params' value='{$pp_grid_params}' />  
+            <input type='hidden' name='grid_params2' id='fgrid_params2' value='{$pp_grid_params2}' />  
+            <input type='hidden' name='report_caption' id='freport_caption' value='{$pp_report_caption}' />  
+            
+        </DIV>
+
+        <DIV id='preps_buttons'>
+                Група
+                <button name='pager_submit' value='GrpDec' type='submit'  class ='btn btnSmall' id='btGrpDec'> &nbsp;&lt;&nbsp; </button>     
+                <input  name='grp_num' type='text' id = 'fgrp_num' size='3' value= '{$grp_num}' readonly />
+                <button name='pager_submit' value='GrpInc' type='submit' class ='btn btnSmall' id='btGrpInc'>&nbsp;&gt;&nbsp;</button>     
+                &nbsp;&nbsp;
+                Сторінка
+                <button name='pager_submit'  value='PageDec' type='submit' class ='btn btnSmall' id='btPageDec'> &nbsp;&lt;&nbsp; </button>     
+                <input  name='page_num' type='text' id = 'fpage_num' size='3' value= '{$page_num}' readonly />
+                <button name='pager_submit'  value='PageInc' type='submit' class ='btn btnSmall' id='btPageInc'>&nbsp;&gt;&nbsp;</button>     
+                &nbsp;&nbsp;                
+                Рядків на сторінці
+                <input  name='page_size' type='text' size='5' value= '{$page_size}' />
+                &nbsp;&nbsp;                
+                <button name='pager_submit'  value='PageAll' type='submit' class ='btn btnSmall' id='btPageAll'>Все</button>                     
+                
+                <label><input type='checkbox' name='to_xls' id='fxls' value='1' /> Звіт в EXCEL</label>         
+        </DIV>
+        
+        
+    </FORM>        
+        
