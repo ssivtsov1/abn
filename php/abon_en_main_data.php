@@ -61,6 +61,8 @@ if ($parch==0)
   $qWhere=$qWhere.' archive =0 ';
 }
 
+$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
+
 if ($parch==1)
 { 
   if ($qWhere!='') $qWhere=$qWhere.' and ';
@@ -69,13 +71,25 @@ if ($parch==1)
   $qWhere=$qWhere.' archive =1 ';
 }
 
-
+//(coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+//(coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+if($flag_cek)
 $Query = "SELECT COUNT(*) AS count FROM 
 (select acc.id, acc.book, acc.code, acc.note, acc.archive, sw.action,
  adr.town, (adr.street||coalesce(' ('||adi.name_old||')',''))::varchar as street, 
- (coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+  
+CASE WHEN isdigit((acc.addr).house)='t' THEN cast((acc.addr).house as int)
+   WHEN isdigit((acc.addr).house)='f' THEN cast(regexp_replace((acc.addr).house, '[^0-9]', '', 'g') as int) END as house,
+   
+CASE WHEN isdigit((acc.addr).house)='t' THEN null
+   WHEN isdigit((acc.addr).house)='f' THEN regexp_replace((acc.addr).house, '[0-9]', '', 'g') END as house_letter,  
+   
  (acc.addr).korp, 
- (coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+  
+ cast(CASE WHEN isdigit((acc.addr).flat)='t' THEN cast((acc.addr).flat as int)
+             WHEN isdigit((acc.addr).flat)='f' THEN null
+        END as int) as flat,
+        
  (c.last_name||' '||coalesce(c.name,'')||' '||coalesce(c.patron_name,''))::varchar as abon,
  CASE WHEN id_lgt is not null THEN 'П' END as lgt,
 (adr.street||' '||
@@ -106,6 +120,43 @@ left join (
  )  as lg on (lg.id_paccnt = acc.id)
 
 ) as ss  $qWhere;";
+else
+   $Query = "SELECT COUNT(*) AS count FROM 
+(select acc.id, acc.book, acc.code, acc.note, acc.archive, sw.action,
+ adr.town, (adr.street||coalesce(' ('||adi.name_old||')',''))::varchar as street, 
+(coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+(coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+ (acc.addr).korp, 
+ (c.last_name||' '||coalesce(c.name,'')||' '||coalesce(c.patron_name,''))::varchar as abon,
+ CASE WHEN id_lgt is not null THEN 'П' END as lgt,
+(adr.street||' '||
+   (coalesce('буд.'||(acc.addr).house||'','')||
+		coalesce('/'||(acc.addr).slash||' ','')|| 
+			coalesce(' корп.'||(acc.addr).korp||'','')||
+				coalesce(', кв. '||(acc.addr).flat,'')||
+					coalesce('/'||(acc.addr).f_slash,''))::varchar
+)::varchar as addr
+from clm_paccnt_tbl as acc 
+join clm_abon_tbl as c on (c.id = acc.id_abon) 
+left join adt_addr_town_street_tbl as adr on (adr.id = (acc.addr).id_class) 
+left join adi_class_tbl as adi on (adi.id = (acc.addr).id_class)
+left join 
+(
+       select csw.id_paccnt, csw.dt_action, csw.action
+       from clm_switching_tbl as csw 
+        join (select id_paccnt, max(dt_action) as maxdt from clm_switching_tbl  group by id_paccnt) as csdt 
+       on (csw.id_paccnt = csdt.id_paccnt and csw.dt_action = csdt.maxdt) 
+       left join clm_switching_tbl as cswc on (csw.id_paccnt = cswc.id_paccnt and csw.dt_action = cswc.dt_action and cswc.action in (3,4)) 
+       where csw.action not in (3,4) and cswc.id_paccnt is null 
+
+) as sw on (sw.id_paccnt = acc.id)
+left join (
+  select id_paccnt, max(la.id) as id_lgt
+  from lgm_abon_tbl  as la
+  where (dt_end is null) or (dt_end > now()::date) group by id_paccnt order by id_paccnt
+ )  as lg on (lg.id_paccnt = acc.id)
+
+) as ss  $qWhere;"; 
 
 /*
  (adr.adr||' '||
@@ -138,12 +189,62 @@ if ($start < 0)
 //address_print(acc.addr)
 //('0'||regexp_replace(regexp_replace(acc.code, '-.*?$', '') , '[^0-9]', '','g'))::int as int_code,
 
+//(coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+// (coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+if($flag_cek)
 $SQL = "select * from (select acc.id, acc.book, acc.code, acc.note, acc.archive,sw.action,
  ('0'||substring(acc.code FROM '[0-9]+'))::int as int_code,
   adr.town, (adr.street||coalesce('('||adi.name_old||')',''))::varchar as street, 
- (coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+  
+CASE WHEN isdigit((acc.addr).house)='t' THEN cast((acc.addr).house as int)
+   WHEN isdigit((acc.addr).house)='f' THEN cast(regexp_replace((acc.addr).house, '[^0-9]', '', 'g') as int) END as house,
+   
+ CASE WHEN isdigit((acc.addr).house)='t' THEN null
+   WHEN isdigit((acc.addr).house)='f' THEN regexp_replace((acc.addr).house, '[0-9]', '', 'g') END as house_letter,
+
  (acc.addr).korp, 
- (coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+ 
+ 
+cast(CASE WHEN isdigit((acc.addr).flat)='t' THEN cast((acc.addr).flat as int)
+             WHEN isdigit((acc.addr).flat)='f' THEN null
+        END as int) as flat,
+        
+ (c.last_name||' '||coalesce(c.name,'')||' '||coalesce(c.patron_name,''))::varchar as abon,
+CASE WHEN id_lgt is not null THEN 'П' END as lgt,
+(adr.street||' '||
+   (coalesce('буд.'||(acc.addr).house||'','')||
+		coalesce('/'||(acc.addr).slash||' ','')|| 
+			coalesce(' корп.'||(acc.addr).korp||'','')||
+				coalesce(', кв. '||(acc.addr).flat,'')||
+					coalesce('/'||(acc.addr).f_slash,''))::varchar
+)::varchar as addr
+from clm_paccnt_tbl as acc 
+join clm_abon_tbl as c on (c.id = acc.id_abon) 
+left join adt_addr_town_street_tbl as adr on (adr.id = (acc.addr).id_class)
+left join adi_class_tbl as adi on (adi.id = (acc.addr).id_class)
+left join 
+(
+       select csw.id_paccnt, csw.dt_action, csw.action
+       from clm_switching_tbl as csw 
+        join (select id_paccnt, max(dt_action) as maxdt from clm_switching_tbl  group by id_paccnt) as csdt 
+       on (csw.id_paccnt = csdt.id_paccnt and csw.dt_action = csdt.maxdt) 
+       left join clm_switching_tbl as cswc on (csw.id_paccnt = cswc.id_paccnt and csw.dt_action = cswc.dt_action and cswc.action in (3,4)) 
+       where csw.action not in (3,4) and cswc.id_paccnt is null 
+) as sw on (sw.id_paccnt = acc.id)
+left join (
+  select id_paccnt, max(la.id) as id_lgt
+  from lgm_abon_tbl  as la
+  where (dt_end is null) or (dt_end > now()::date) group by id_paccnt order by id_paccnt
+ )  as lg on (lg.id_paccnt = acc.id)
+) as ss
+  $qWhere Order by $sidx $sord LIMIT $limit OFFSET $start ";
+else
+  $SQL = "select * from (select acc.id, acc.book, acc.code, acc.note, acc.archive,sw.action,
+ ('0'||substring(acc.code FROM '[0-9]+'))::int as int_code,
+  adr.town, (adr.street||coalesce('('||adi.name_old||')',''))::varchar as street, 
+(coalesce((acc.addr).flat,'')|| coalesce('/'||(acc.addr).f_slash,''))::varchar as flat,
+(coalesce((acc.addr).house,'')||coalesce('/'||(acc.addr).slash,''))::varchar as house,
+ (acc.addr).korp, 
  (c.last_name||' '||coalesce(c.name,'')||' '||coalesce(c.patron_name,''))::varchar as abon,
 CASE WHEN id_lgt is not null THEN 'П' END as lgt,
 (adr.street||' '||
@@ -174,6 +275,7 @@ left join (
 ) as ss
   $qWhere Order by $sidx $sord LIMIT $limit OFFSET $start ";
 
+
 //throw new Exception(json_encode($SQL));
 
 $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
@@ -193,6 +295,10 @@ if (!$result) {
         $data['rows'][$i]['cell'][] = $row['town'];
         $data['rows'][$i]['cell'][] = $row['street'];
         $data['rows'][$i]['cell'][] = $row['house'];
+        
+        if($flag_cek)
+        $data['rows'][$i]['cell'][] = $row['house_letter'];
+        
         $data['rows'][$i]['cell'][] = $row['korp'];
         $data['rows'][$i]['cell'][] = $row['flat'];
         

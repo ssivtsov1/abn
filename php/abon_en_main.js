@@ -22,7 +22,7 @@ jQuery(function(){
     //width:800,
     autowidth: true,
     scroll: 0,
-    colNames:['Книга','Особ.рахунок','Адреса','Місто','Вулиця','Буд.','Корп.','Кв.','Абонент','Прим.','Пільга','Стан','Арх','Код'],
+    colNames:['Книга','Особ.рахунок','Адреса','Місто','Вулиця','Буд.','Літ.','Корп.','Кв.','Абонент','Прим.','Пільга','Стан','Арх','Код'],
     colModel :[ 
       {name:'book', index:'book', width:50, editable: true, align:'left',edittype:'text'},           
       {name:'code', index:'code', width:50, editable: true, align:'left',edittype:'text'},                 
@@ -30,6 +30,7 @@ jQuery(function(){
       {name:'town', index:'town', width:100, editable: true, align:'left',edittype:'text', hidden:false},
       {name:'street', index:'street', width:100, editable: true, align:'left',edittype:'text'},
       {name:'house', index:'house', width:40, editable: true, align:'left',edittype:'text'},
+      {name:'house_letter', index:'house_letter', width:20, editable: true, align:'left',edittype:'text'},
       {name:'korp', index:'korp', width:30, editable: true, align:'left',edittype:'text'},
       {name:'flat', index:'flat', width:40, editable: true, align:'left',edittype:'text'},
       
