@@ -31,6 +31,8 @@ else
 start_mpage($nmp1);
 head_addrpage();
 
+$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
+
 print('<link rel="stylesheet" type="text/css" href="css/ded_styles.css" /> ');
 print('<link rel="stylesheet" type="text/css" href="css/layout-default-latest.css" /> ');
     
@@ -41,8 +43,11 @@ print('<script type="text/javascript" src="js/jquery.ui.datepicker-uk.js"></scri
 print('<script type="text/javascript" src="js/jquery.maskedinput-1.3.min.js"></script> ');
 print('<script type="text/javascript" src="js/jquery.layout.min-latest.js"></SCRIPT>');
 print('<script type="text/javascript" src="js/jquery.hotkeys.js"></SCRIPT>');
+if($flag_cek==0)
+    print('<script type="text/javascript" src="abon_en_main.js?version='.$app_version.'"></script> ');
+else
+    print('<script type="text/javascript" src="abon_en_main_cek.js?version='.$app_version.'"></script> ');
 
-print('<script type="text/javascript" src="abon_en_main.js?version='.$app_version.'"></script> ');
 print('<script type="text/javascript" src="check_session.js?version='.$app_version.'"></script> ');
 
 $lactions=DbTableSelList($Link,'cli_switch_action_tbl','id','name');
