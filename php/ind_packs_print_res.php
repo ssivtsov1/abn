@@ -216,7 +216,8 @@ else
 {
     $order = "adr.adr, int_house, (acc.addr).house,(acc.addr).korp , int_flat, int_code, acc.code, z.id";
 }
- 
+ //emp.name
+//inner join eqk_meter_places_tbl emp on (data_c.id_extra=emp.id)
 if($flag_cek)
 $SQL = " select pd.*, acc.book, acc.code, adr.adr as street,
  address_print(acc.addr)||coalesce('&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;відкл.'||to_char(sw.dt_action , 'DD.MM.YYYY')||')','') as adr,
@@ -232,12 +233,12 @@ $SQL = " select pd.*, acc.book, acc.code, adr.adr as street,
 ('0'||coalesce(regexp_replace(regexp_replace((acc.addr).flat, '-.*?$', '') , '[^0-9]', '','g'),''))::int as int_flat,
 ('0'||substring(acc.code FROM '[0-9]+'))::int as int_code,
 ('0'||substring(acc.book FROM '[0-9]+'))::int as int_book,   
-i.value as p_indic, to_char(i.dat_ind, 'DD.MM.YYYY') as dt_p_indic,emp.name as place_counter
+i.value as p_indic, to_char(i.dat_ind, 'DD.MM.YYYY') as dt_p_indic,min(emp.name) as place_counter
 from 
 ind_pack_data as pd 
 join clm_paccnt_tbl as acc on (acc.id = pd.id_paccnt)
-join clm_meterpoint_h as data_c on (data_c.id_paccnt = pd.id_paccnt)
-join eqk_meter_places_tbl emp on (emp.id = data_c.id_extra)
+join clm_meterpoint_h as data_c on (pd.id_paccnt=data_c.id_paccnt)
+left join eqk_meter_places_tbl emp on (data_c.id_extra=emp.id)
 join clm_abon_tbl as c on (c.id = acc.id_abon) 
 join eqi_meter_tbl as im on (im.id = pd.id_type_meter)
 join eqk_zone_tbl as z on (z.id = pd.id_zone)
@@ -268,6 +269,8 @@ left join
 
 ) as sw on (sw.id_paccnt = acc.id)
  where id_pack = $id_pack  
+ group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+ acc.addr,i.value,i.dat_ind,z.id    
  order by $order ;"; 
 else
     $SQL = " select pd.*, acc.book, acc.code, adr.adr as street,
@@ -326,6 +329,10 @@ $prn_nn = 4;
 $prn_max = $lines_count*2+1;
 $table_text= "";
 $cur_street= "";
+//$row1 = pg_fetch_array($result);
+//var_dump($row1);
+//return;
+
 if ($result) 
 {
  while($row = pg_fetch_array($result)) 
