@@ -35,12 +35,14 @@ $fildsArray['code'] =   array('f_name'=>'code','f_type'=>'char');
 $fildsArray['abon'] =   array('f_name'=>'abon','f_type'=>'character varying');
 $fildsArray['town'] =   array('f_name'=>'town','f_type'=>'character varying');
 $fildsArray['street'] =   array('f_name'=>'street','f_type'=>'character varying');
+
 if($flag_cek){
     $fildsArray['house'] =   array('f_name'=>'house','f_type'=>'char');
 }
 else {
     $fildsArray['house'] =   array('f_name'=>'house','f_type'=>'character varying');
 }
+
 $fildsArray['slash'] =   array('f_name'=>'slash','f_type'=>'character varying');
 $fildsArray['korp'] =   array('f_name'=>'korp','f_type'=>'character varying');
 $fildsArray['flat'] =   array('f_name'=>'flat','f_type'=>'char');
