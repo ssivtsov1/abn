@@ -205,10 +205,8 @@ jQuery(function(){
     {label:'Місто/село',name:'town', index:'town', width:100, editable: true, align:'left',edittype:'text'},                    
     {label:'Вулиця',name:'street', index:'street', width:100, editable: true, align:'left',edittype:'text'},                        
     {label:'Буд.',name:'house', index:'house', width:40, editable: true, align:'left',edittype:'text'}, 
-    {label:'Літ.',name:'house_letter', index:'house_letter', width:20, align:'left',edittype:'text'},
     {label:'Буд.доп.',name:'slash', index:'slash', width:50, editable: true, align:'left',edittype:'text',hidden:true},
     {label:'Корпус',name:'korp', index:'korp', width:50, editable: true, align:'left',edittype:'text'},                            
-    
     {label:'Кв.',name:'flat', index:'flat', width:40, editable: true, align:'left',edittype:'text'},                        
     {label:'Кв.доп.',name:'f_slash', index:'f_slash', width:50, editable: true, align:'left',edittype:'text',hidden:true},                            
     {label:'Абонент',name:'abon', index:'abon', width:100, editable: true, align:'left',edittype:'text'},

@@ -24,7 +24,6 @@ if(!$sidx) $sidx =2;
 if(!$limit) $limit = 500;
 if(!$page) $page = 1;
 
-
 $fildsArray =DbGetFieldsArray($Link,'aqi_grptar_tbl');
 
 $qWhere= DbBuildWhere($_POST,$fildsArray);
@@ -60,7 +59,7 @@ $result = pg_query($Link,$SQL) or die("SQL Error: " .pg_last_error($Link) );
   $data['page'] = $page;
   $data['total'] = $total_pages;
   $data['records'] = $count;
- 
+
   $i = 0; 
  while($row = pg_fetch_array($result)) {
       $data['rows'][$i]['cell'][] = $row['id'];
@@ -71,11 +70,9 @@ $result = pg_query($Link,$SQL) or die("SQL Error: " .pg_last_error($Link) );
       $data['rows'][$i]['cell'][] = $row['id_lgt_group'];            
       $data['rows'][$i]['cell'][] = $row['work_period'];                  
       $data['rows'][$i]['cell'][] = $row['dt'];                  
-      $data['rows'][$i]['cell'][] = $row['user_name']; 
-      //$data['rows'][$i]['cell'][] = $flag_cek;
+      $data['rows'][$i]['cell'][] = $row['user_name'];                  
     $i++;
  } 
- 
 }
 
 

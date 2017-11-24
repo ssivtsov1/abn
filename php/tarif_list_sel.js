@@ -57,8 +57,9 @@ var createTarifGrid = function(){
         tarif_target_name.focus();
         jQuery('#grid_seltarif').toggle( );
     } ,  
-    
-   loadError : function(xhr,st,err) {$('#message_zone').html('Type: '+st+'; Response: '+ xhr.status + ' '+xhr.responseText); $('#message_zone').dialog('open');}
+
+
+  loadError : function(xhr,st,err) {$('#message_zone').html('Type: '+st+'; Response: '+ xhr.status + ' '+xhr.responseText); $('#message_zone').dialog('open');}
 
   }).navGrid('#dov_tarif_tablePager',
         {edit:false,add:false,del:false},
