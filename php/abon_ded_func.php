@@ -239,6 +239,7 @@ function DbGetFieldsArray($lnk,$table) {
     
 };
 
+// Построение выражения WHERE (функция подкорректирована ЦЭК)
 function DbBuildWhere($_POST_val,$farrey, $fparse_all=0,$farray_exeption) {
     
 $qW = ' WHERE ';

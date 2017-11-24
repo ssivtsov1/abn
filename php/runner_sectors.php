@@ -16,6 +16,7 @@ $nmp1 = "АЕ-Дільниці кур'єрів";
   
 start_mpage($nmp1); //заголовок
 head_addrpage();  // хедер, подключение библиотек
+$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
 
 print('<link rel="stylesheet" type="text/css" href="css/ded_styles.css" /> ');
 print('<link rel="stylesheet" type="text/css" href="css/layout-default-latest.css" /> ');
@@ -26,7 +27,14 @@ print('<script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></
 print('<script type="text/javascript" src="js/jquery.ui.datepicker-uk.js"></script> ');
 print('<script type="text/javascript" src="js/jquery.maskedinput-1.3.min.js"></script> ');
 print('<script type="text/javascript" src="staff_list_sel.js?version='.$app_version.'"></script> ');
-print('<script type="text/javascript" src="runner_sectors.js?version='.$app_version.'"></script> ');
+
+if($flag_cek==0){
+    print('<script type="text/javascript" src="runner_sectors.js?version='.$app_version.'"></script> ');
+}
+else {
+    print('<script type="text/javascript" src="runner_sectors_cek.js?version='.$app_version.'"></script> ');
+}
+
 
 $r_edit = CheckLevel($Link,'довідник-дільниці',$session_user);
 

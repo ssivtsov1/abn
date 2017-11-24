@@ -31,10 +31,15 @@ $fildsArray['runner'] =   array('f_name'=>'runner','f_type'=>'character varying'
 $fildsArray['operator'] =   array('f_name'=>'operator','f_type'=>'character varying');
 $fildsArray['user_name'] =   array('f_name'=>'user_name','f_type'=>'character varying');
 
-// Массив исключений по типам данных
-$fieldsExeption = ['num_pack'];
-        
-$qWhere= DbBuildWhere($_POST,$fildsArray,0,$fieldsExeption);
+$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
+
+if($flag_cek==1){
+    // Массив исключений по типам данных
+    $fieldsExeption = ['num_pack'];
+    $qWhere= DbBuildWhere($_POST,$fildsArray,0,$fieldsExeption);
+    }
+else
+    $qWhere= DbBuildWhere($_POST,$fildsArray);
 
 $p_mmgg = sql_field_val('p_mmgg', 'date');
 
