@@ -355,7 +355,8 @@ if ($result)
     $num_meter       =$row['num_meter']; 
     if($flag_cek==1){
         $type_meter      =$row['type_meter'];
-        $place_counter      =$row['place_counter'];
+        
+        $place_counter   = short_name_place_counter($row['place_counter']);
     }
     $carry           =$row['carry']; 
     $zone_phase      =$row['zone_phase']; 
@@ -427,13 +428,12 @@ TAB_STR;
   else
   {
   
-      $table_text.= <<<TAB_STR
-
+  $table_text.= <<<TAB_STR
   <tr height=15 $row_style >
     <td rowspan="2">$nn</td>
     <td>$abon.$phone</td>
     <td rowspan="2">$book/$code</td>
-    <td rowspan="2" class='num_met'>$num_meter / $type_meter / $place_counter</td>
+    <td rowspan="2" class='num_met'>$num_meter / $type_meter$place_counter</td>
     <td rowspan="2" class='carry' >$carry</td>
     <td rowspan="2">$zone_phase </td>
     <td rowspan="2">$p_indic</td>
@@ -447,6 +447,7 @@ TAB_STR;
   </tr>
    
 TAB_STR;
+   
   }
   }
 }
@@ -487,7 +488,20 @@ end_mpage();
 ?>
 
 <?php
-// Нормализация № телефона в формате 067 000-00-00
+
+// Подстановка короткого имени места установки счетчика - для ЦЭК
+function short_name_place_counter($p){
+    $r = "";
+    if($p == "У винос.контейнерах")
+        $r = " / Фасад";
+    if($p == "У приміщенні")
+        $r = " / Прим.";
+    if($p == "На сходовій клітині")
+        $r = " / Сх. кліт.";
+    return $r;
+}
+
+// Нормализация № телефона в формате 067 000-00-00 - для ЦЭК
 // распознает широкоизвестные коды операторов Украины
 // отсекает другие символы (кроме цифр).
 function norm_tel($p){
