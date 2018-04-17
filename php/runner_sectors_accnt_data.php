@@ -80,6 +80,9 @@ $SQL = " select * from (select t.* ,
         left join syi_user as u1 on (u1.id = t.id_person)) as ss
           $qWhere Order by $sidx $sord LIMIT $limit OFFSET $start ";
 
+$f=fopen('aaa','w+');
+fputs($f,$SQL);
+
 //throw new Exception(json_encode($SQL));
 
 $result = pg_query($Link,$SQL) or die("SQL Error: " .pg_last_error($Link) );

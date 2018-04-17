@@ -12,6 +12,11 @@ p {font-family: "Times New Roman", Times, serif;font-size: 14px;}
 .c_n {text-align: right; mso-number-format:Standard;}
 .c_i{text-align: right; mso-number-format:"0";}
 .c_t{ mso-number-format:"\@";}
+.c_i_all{
+	font-weight:bold;
+	text-align: right;
+	
+}
 
 @media print
 {    

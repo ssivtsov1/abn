@@ -13,7 +13,8 @@ $Link = get_database_link($_SESSION);
 $session_user = $_SESSION['ses_usr_id'];
 session_write_close();
 
-  
+$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
+
 $id_pack = sql_field_val('id_pack','int');
 
 $id_sector = sql_field_val('id_sector', 'int');
@@ -84,7 +85,58 @@ print('<script type="text/javascript" src="js/jquery.ui.datepicker-uk.js"></scri
 print('<script type="text/javascript" src="js/jquery.maskedinput-1.3.min.js"></script> ');
 
 ?> 
+<? if($flag_cek==1): ?>
+<style type="text/css">
+body {background-color: white}
+.tab_head {font-family: "Times New Roman", Times, serif; font-size: 13px; }
+.table_footer{font-family: "Times New Roman", Times, serif; font-size: 13px; }
 
+table.indic_print_table { 
+    /*border-collapse:collapse; */
+    border-collapse:initial; border-spacing:0px;
+    border-right:1px dotted rgb(150,150,150); border-left:0; border-bottom:1px dotted rgb(150,150,150); border-top:0;
+    font-family: "Times New Roman", Times, serif; font-size: 13px; }
+
+table.indic_print_table td { vertical-align:top; page-break-inside: avoid; 
+  /*   border:1px dotted rgb(150,150,150); */
+    border-left:1px dotted rgb(150,150,150); border-right:0; border-top:1px dotted rgb(150,150,150); border-bottom:0 ;
+    padding-top:1px; padding-bottom: 0px; padding-left:2px;padding-right:0px;}
+
+table.indic_print_table th { page-break-inside: avoid; 
+    /*border:1px solid rgb(150,150,150);*/
+    border-left:1px solid rgb(150,150,150); border-right:0; border-top:1px solid rgb(150,150,150); border-bottom:0 ;
+    padding:2px; }
+
+table.indic_print_table td.tab_street { border:1px solid black; 
+             font-family: "Arial", Courier, monospace; font-size: 12px; font-weight: bold;}
+#pheader { font-family: "Times New Roman", Times, serif; font-size: 13px; font-weight: bold; }
+#pheader2 { font-family: "Times New Roman", Times, serif; font-size: 16px; font-weight: bold;}
+
+.num_met {font-family: "Courier New", Courier, monospace; font-size: 12px;  }
+.bold_place {font-family: "Courier New", Courier, monospace; font-size: 12px; font-weight: bold;  }
+.carry {text-align:center }
+
+@page {margin-left:0.3cm; margin-right:0.3cm;
+     size: portrait;
+     counter-increment: page;
+     @bottom-right {
+        padding-right:20px;
+        content: "Page " counter(page);
+      }     
+}
+ 
+@media print
+      {    
+          .no-print, .no-print *
+          {
+              display: none !important;
+          }
+      } 
+
+</style>
+<? endif; ?>
+
+<? if($flag_cek==0): ?>
 <style type="text/css">
 body {background-color: white}
 .tab_head {font-family: "Times New Roman", Times, serif; font-size: 13px; }
@@ -132,6 +184,7 @@ table.indic_print_table td.tab_street { border:1px solid black;
       } 
 
 </style>
+<? endif; ?>
 
 </head>
 <body >
@@ -173,7 +226,7 @@ table.indic_print_table td.tab_street { border:1px solid black;
  <thead>        
   <tr>      
     <td id="pheader2" colspan ="11">Дільниця: <?php echo "$sector" ?>;  &nbsp;&nbsp;&nbsp;&nbsp;
-        Кур`єр : <?php echo "$runner" ?> &nbsp;&nbsp;&nbsp;&nbsp; <?php echo "$operator" ?> </td>     
+        Контролер : <?php echo "$runner" ?> &nbsp;&nbsp;&nbsp;&nbsp; <?php echo "$operator" ?> </td>     
   </tr>
   <tr>
     <th width="4%" scope="col"><span class="tab_head">№<br/>п/п </span></th>
@@ -186,14 +239,14 @@ table.indic_print_table td.tab_street { border:1px solid black;
     <th width="10%" scope="col"><span class="tab_head">Дата зняття попер. показань </span></th>
     <th width="10%" scope="col"><span class="tab_head">Показан. лічильн. на дату зняття </span></th>
     <th width="10%" scope="col"><span class="tab_head">Дата зняття пок.</span></th> 
-    <th width="9%" scope="col"><span class="tab_head">Підпис споживача </span></th>
+    <th width="9%" scope="col"><span class="tab_head">Підпис спож. </span></th>
   </tr>
   </thead>
   <tbody>    
 
  <?php
   
-$flag_cek = is_cek($Link);  //принадлежность РЭСа к ЦЭК
+
 $street_style='';
 
 if ($new_street_new_page==1)
@@ -219,13 +272,15 @@ else
  //emp.name
 //inner join eqk_meter_places_tbl emp on (data_c.id_extra=emp.id)
 if($flag_cek)
-$SQL = " select pd.*, acc.book, acc.code, adr.adr as street,
+$SQL = " select pd.*, acc.book, acc.not_live,acc.code, adr.adr as street,
  address_print(acc.addr)||coalesce('&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;відкл.'||to_char(sw.dt_action , 'DD.MM.YYYY')||')','') as adr,
  ( CASE WHEN acc.idk_house = 3 THEN 'Д&nbsp;' ELSE '' END||
    CASE WHEN coalesce(lg.lgt_cnt,0)>0 THEN '+&nbsp;' ELSE '' END||
    CASE WHEN sb.id_paccnt is not null THEN 'S&nbsp;' ELSE '' END|| 
    substr((c.last_name||'&nbsp;'||coalesce(c.name,'')||'&nbsp;'||coalesce(c.patron_name,''))::varchar,1,40))::varchar as abon,
-   coalesce(c.mob_phone,'') as phone,coalesce(im.name,'') as type_meter,
+   CASE WHEN length(coalesce(trim(c.mob_phone),''))>0 THEN coalesce(c.mob_phone,'') ELSE 
+   CASE WHEN length(coalesce(trim(c.home_phone),''))>0 THEN coalesce(c.home_phone,'') ELSE coalesce(c.work_phone) END END as phone,
+   coalesce(im.name,'') as type_meter,
    CASE WHEN length(pd.num_meter)> 9 THEN substr(pd.num_meter,1,8)||'<br/>'||substr(pd.num_meter,9,100) ELSE pd.num_meter END as num_meter,
  pd.carry ,
  (CASE WHEN z.id = 0 THEN '' ELSE z.nm END)||(CASE WHEN im.phase = 1 THEN '' ELSE ' 3f' END)::varchar as zone_phase,
@@ -269,7 +324,7 @@ left join
 
 ) as sw on (sw.id_paccnt = acc.id)
  where id_pack = $id_pack  
- group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+ group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,
  acc.addr,i.value,i.dat_ind,z.id    
  order by $order ;"; 
 else
@@ -322,11 +377,13 @@ left join
  where id_pack = $id_pack  
  order by $order ;"; 
 
+    
+    
 $result = pg_query($Link,$SQL) or die("SQL Error: " .pg_last_error($Link) );
 $nn = 0;  
-$prn_nn = 4;
-//$prn_max = 55;
-$prn_max = $lines_count*2+1;
+$prn_nn = 2;
+$prn_max = 18;
+//$prn_max = $lines_count*2+1;
 $table_text= "";
 $cur_street= "";
 //$row1 = pg_fetch_array($result);
@@ -335,6 +392,8 @@ $cur_street= "";
 
 if ($result) 
 {
+           
+    
  while($row = pg_fetch_array($result)) 
   {
     $nn++;
@@ -355,6 +414,10 @@ if ($result)
     $num_meter       =$row['num_meter']; 
     if($flag_cek==1){
         $type_meter      =$row['type_meter'];
+        $not_live = '';
+        if($row['not_live']=='t')
+            $not_live = '(Н.п)';
+                
         
         $place_counter   = short_name_place_counter($row['place_counter']);
     }
@@ -388,7 +451,7 @@ if ($result)
         }
     }
 
-    $prn_nn=$prn_nn+2;
+    $prn_nn++;
     
     if ($prn_nn>=$prn_max)
     {
@@ -398,10 +461,13 @@ if ($result)
     else
     {
        if($flag_cek==0)
-        $row_style ='';
+         // $row_style ='';
+        $row_style = 'style = "page-break-before: avoid;" ';
        else
         $row_style = 'style = "page-break-before: avoid;" ';
     }
+    
+   // $nnn=$nn.'('.$prn_nn.')';
         
   if($flag_cek==0){
     $table_text.= <<<TAB_STR
@@ -432,8 +498,8 @@ TAB_STR;
   <tr height=15 $row_style >
     <td rowspan="2">$nn</td>
     <td>$abon.$phone</td>
-    <td rowspan="2">$book/$code</td>
-    <td rowspan="2" class='num_met'>$num_meter / $type_meter$place_counter</td>
+    <td rowspan="2">$code <span class='bold_place'>$not_live</span></td>
+    <td rowspan="2" class='num_met'>$num_meter / $type_meter<span class='bold_place'>$place_counter</span></td>
     <td rowspan="2" class='carry' >$carry</td>
     <td rowspan="2">$zone_phase </td>
     <td rowspan="2">$p_indic</td>
@@ -493,11 +559,15 @@ end_mpage();
 function short_name_place_counter($p){
     $r = "";
     if($p == "У винос.контейнерах")
-        $r = " / Фасад";
-    if($p == "У приміщенні")
-        $r = " / Прим.";
+        $r = " /Фсд";
+    if($p == "У квартирі")
+        $r = " /кв.";
+    if($p == "В будинку")
+        $r = " /буд.";
     if($p == "На сходовій клітині")
-        $r = " / Сх. кліт.";
+        $r = " /С.К";
+    if($p == "ВБШ")
+        $r = " /ВБШ";
     return $r;
 }
 
@@ -517,7 +587,7 @@ function norm_tel($p){
         $op = substr($tel,0,3);
         $y = strlen($tel);
         if($y<10) {
-        return '';
+        return $tel;
         }
         switch($op) {
         case '050':  $flag = 1;

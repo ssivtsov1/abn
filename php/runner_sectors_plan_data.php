@@ -13,6 +13,13 @@ $Link = get_database_link($_SESSION,1);
 $session_user = $_SESSION['ses_usr_id'];
 session_write_close();
 
+$Query=" select to_char(fun_mmgg(), 'DD.MM.YYYY') as mmgg;";
+$result = pg_query($Link,$Query) or die("SQL Error: " .pg_last_error($Link) );
+$row = pg_fetch_array($result);
+$p_mmgg = $row['mmgg'];
+$year_n = substr($p_mmgg,6,4);
+$month_n = substr($p_mmgg,3,2);
+
 $page = $_POST['page']; // get the requested page
 $limit = $_POST['rows']; // get how many rows we want to have into the grid
 $sidx = $_POST['sidx']; // get index row - i.e. user click to sort
@@ -34,9 +41,10 @@ $qWhere= DbBuildWhere($_POST,$fildsArray);
 
 $Query="SELECT COUNT(*) AS count FROM (select t.id, t.name,t.code, t.id_runner,t.sort_flag,t.id_region,t.zone,
 t.notes,t.id_dep,t.dt_b,t.work_period, t.dt_input,t.id_person,
-p.represent_name as runner, p2.represent_name as operator, p3.represent_name as controler
+p4.cntr as runner, p2.represent_name as operator, p3.represent_name as controler
         from $table_name as t 
         left join prs_persons as p on (p.id = t.id_runner)
+        left join act_plan_cache_tbl as p4 on (t.name = p4.sector and p4.year=$year_n and p4.month=$month_n)
         left join prs_persons as p2 on (p2.id = t.id_operator)
         left join prs_persons as p3 on (p3.id = t.id_kontrol)
 ) as sss $qWhere;";
@@ -60,10 +68,11 @@ if($start < 0) $start = 0;
 
 $SQL = "select * from (select t.id, t.name,t.code, t.id_runner, t.id_region, t.zone,
 t.notes,t.id_dep,t.dt_b,t.work_period, t.dt_input,t.id_person, t.sort_flag,
-p.represent_name as runner, p2.represent_name as operator, p3.represent_name as controler, 
+p4.cntr as runner, p2.represent_name as operator, p3.represent_name as controler, 
 u1.name as user_name 
         from $table_name as t 
         left join prs_persons as p on (p.id = t.id_runner)
+        left join act_plan_cache_tbl as p4 on (trim(t.name) = trim(p4.sector) and p4.year=$year_n and p4.month=$month_n)
         left join prs_persons as p2 on (p2.id = t.id_operator)
         left join prs_persons as p3 on (p3.id = t.id_kontrol)
         left join syi_user as u1 on (u1.id = t.id_person)) as ss

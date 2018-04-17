@@ -29,15 +29,16 @@ print('<script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></
 $sys_link = pg_connect($app_maint_cstr) or die(" Sys Connection Error: " . pg_last_error($sys_link));
 $lbaseselect=DbTableSelect($sys_link,'nm_db','nm_db','nm_txt');
 
+
 $default_base='';
-if (isset($_COOKIE['fizabon_app_base']))
+if (!isset($_COOKIE['fizabon_app_base']))
 {
     $default_base = $_COOKIE['fizabon_app_base'];
 }
 else
 {
     $SQL = "select * from nm_db where def = true; ";
-
+    
     $result = pg_query($sys_link,$SQL);
 
     if ($result) 

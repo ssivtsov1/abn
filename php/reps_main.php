@@ -43,6 +43,7 @@ $lindicoperselect =DbTableSelect($Link,'cli_indic_type_tbl','id','name');
 
 $lregionselect=DbTableSelect($Link,'cli_region_tbl','id','name');
 $ltasklist=DbTableSelect($Link,'cli_tasks_tbl','id','name');
+$controlerlist=DbTableSelect($Link,'prs_persons','id','represent_name');
 
 $r_off = CheckLevel($Link,'відключення',$session_user);
 $town_hidden=CheckTownInAddrHidden($Link);
@@ -81,6 +82,14 @@ var staff_dep = <?php echo "$staff_dep" ?>;
 var r_off = <?php echo "$r_off" ?>;
 var town_hidden = <?php echo "$town_hidden" ?>; 
 var id_res = <?php echo "$id_res" ?>;  
+//var dt_b = $("#fdt_b").val();
+//var dt_b = ch_dt
+
+function ch_dt(p){
+   var dt_1 = p;
+   //alert(dt_1);
+}    
+
 </script>
 
 <style type="text/css"> 
@@ -125,7 +134,7 @@ var id_res = <?php echo "$id_res" ?>;
             
                 &nbsp;&nbsp;
                 З  
-                <input name="dt_b" type="text" size="10" class="dtpicker" id ="fdt_b" value= "" />
+                <input name="dt_b" type="text" size="10" class="dtpicker" id ="fdt_b" value= "" onchange="ch_dt(this.value)"/>
                 По     
                 <input name="dt_e" type="text" size="10" class="dtpicker" id ="fdt_e" value= "" />                
                 &nbsp;&nbsp;                
@@ -215,7 +224,9 @@ var id_res = <?php echo "$id_res" ?>;
                     <input name="sector" type="text" id = "fsector" size="50" value= "" data_old_value = "" readonly />
                 </label> 
                 <button type="button" class ="btnSel" id="btSectorSel"></button>   
-                <button type="button" class ="btnClear" id="btSectorClear"></button>                       
+                <button type="button" class ="btnClear" id="btSectorClear"></button> 
+                <button type="button" class ="btnPlan" id="btSectorPlan"></button> 
+                <button type="button" class ="btnPlanID" id="btSectorPlanID"></button> 
                 
                 &nbsp;&nbsp; &nbsp;  
 
@@ -468,6 +479,9 @@ var id_res = <?php echo "$id_res" ?>;
                     
                     <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary" value="indic_summary" highlight="#fperiod_str,#fid_region,#fbook,#fsector ">Кількість занесених показань</button> &nbsp;
                     <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary_insp" value="indic_summary_insp" highlight="#fperiod_str,#fid_region">Кількість показ.(по кур'єрам)</button> &nbsp;
+                    <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary_insp1" value="indic_summary_insp_new" highlight="#fperiod_str,#fid_region">Кількість показ.(по кур'єрам) НОВА!!!</button> &nbsp;
+                    <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary_insp2" value="indic_summary_insp_detail_new" highlight="#fperiod_str,#fid_region">Кількість показ.(по кур'єрам і дільницям) НОВА!!!</button> &nbsp;
+                    <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary_insp2" value="indic_summary_counter_new" highlight="#fperiod_str,#fid_region">Кількість лічильників(по місцям уст.) НОВА!!!</button> &nbsp;
                     <button name="submitButton" type="submit" class ="btn btnRep" onclick="setTemplate('indic_summary_insp')" id="bindic_summary_insp_pack" value="indic_summary_insp_pack" highlight="#fperiod_str,#fid_region">Кількість показ.(по кур'єрам та відомостям)</button> &nbsp;
                     
                     <button name="submitButton" type="submit" class ="btn btnRep" id="bindic_summary_small" value="indic_summary_small" highlight="#fperiod_str,#fbook,#fsector,#fid_region">Підсумок</button> &nbsp;
@@ -605,7 +619,26 @@ var id_res = <?php echo "$id_res" ?>;
 <div id="grid_selparam" style="display:none; position:absolute; margin:1px; background: #FFFFCC; borderWidth:1px;z-index: 100000;" > 
           <table id="dov_param_table" style="margin:1px;"></table>
           <div id="dov_param_tablePager"></div>
-</div>    
+</div>  
+
+<div id="pcontrolers_counters_table" style="display:none; position:absolute; margin:1px;left:13.5%;
+     background: #FFFFCC; borderWidth:1px;z-index: 100000;" >   
+    <table id="controlers_counters_table" style="margin:1px;"></table>
+    <div id="controlers_counters_tablePager"></div>
+</div> 
+
+
+<div id="grid_plancache" style="display:none; position:absolute; margin:1px;left:33%;
+     background: #FFFFCC; borderWidth:1px;z-index: 100000;" >   
+     <table id="plan_cache_table" style="margin:1px;"></table>
+     <div id="plan_cache_tablePager"></div>
+</div> 
+
+<div id="grid_planview" style="display:none; position:absolute; margin:1px;left:33%;
+     background: #FFFFCC; borderWidth:1px;z-index: 100000;" >   
+     <table id="plan_view_table" style="margin:1px;"></table>
+     <div id="plan_view_tablePager"></div>
+</div>  
 
     <div id="dialog-confirm" title="Предупреждение" style="display:none;">
 	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>

@@ -22,9 +22,12 @@ if (isset($_POST['submitButton'])) {
 
 if ($to_xls==1) 
 {
+    
     header('Content-type: application/vnd.ms-excel; charset=utf-8;');
+    //header('Content-type: application/x-msdownload; charset=utf-8');
     //header('Content-disposition: inline; filename="'.$oper.date('_ymd_his', time()).'.xls."');
     header('Content-disposition: attachment; filename="'.$oper.date('_ymd_his', time()).'.xls."');
+    //header("Content-Transfer-Encoding: binary ");
 }
 else
     header('Content-type: text/html; charset=utf-8');
@@ -576,7 +579,7 @@ if ($oper=='rep1')
 //---------------------------------------------------------------------------
 if (($oper=='zvit')||($oper=='zvit_fast')||($oper=='zvit_read'))
     
-{
+{  
     $p_mmgg = sql_field_val('dt_b', 'mmgg');
 
     list($year, $month, $day  ) = split('[/.-]', $p_mmgg);
@@ -650,6 +653,9 @@ if (($oper=='zvit')||($oper=='zvit_fast')||($oper=='zvit_read'))
             and b.mmgg<tv.dt_end
             and (tt.per_min is null or (tt.per_min <= $p_mmgg and tt.per_max >= $p_mmgg ))
             group by b.id_doc,b.id_paccnt,l.summ_lgt, bom(b.mmgg),eom(b.mmgg),b.value;";
+      
+      
+
     
       $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
     
@@ -675,7 +681,8 @@ if (($oper=='zvit')||($oper=='zvit_fast')||($oper=='zvit_read'))
             and ident !~ 'rsubs_sum' and ident !~ 'rsubs_m'
             order by num; ";
 
-    
+    $f=fopen('aaa_bill.sql','w+');
+       fputs($f,$SQL);
 /*    
       $SQL = "select z.*, s.seb_code from rep_zvit_tbl as z
          left join seb_zvit_lines_tbl as s on (z.ident = s.ident)
@@ -5272,6 +5279,591 @@ order by t.ident;";
     echo $footer_text_eval;
     
 }
+
+
+
+if ($oper=='indic_summary_insp_period_new')
+{
+    
+    $p_mmgg = trim(sql_field_val('dt_b', 'mmgg'));
+    $mmgg1_str = trim($_POST['period_str']);
+    $year_n = substr($p_mmgg,1,4);
+    $month_n = substr($p_mmgg,6,2);
+    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+    
+    $d_begin = "'".$pp_dt_b."'";
+    $d_end   = "'".$pp_dt_e."'";
+    $month_n=substr($pp_dt_e,3,2);
+    $yearn_n = substr($pp_dt_e,6,4);        
+    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+            
+    $p_id_region = sql_field_val('id_region', 'int');
+    
+    if($res_code!='310')
+      $caption1 = 'Кур`єр';
+    else
+      $caption1 = 'Контролер';    
+        
+    $params_caption ='';
+    $where = ' ';    
+
+   
+$SQL="SELECT * from job_controler_period(".$param_date.','.$d_begin.','.$d_end.')';
+//echo $SQL;
+
+   // throw new Exception(json_encode($SQL));
+    $sum_cnt_all=0;
+    $sum_cnt_list=0;
+    
+    echo '</br>';
+    echo $mmgg1_str;
+    echo '<table cellpadding="0" cellspacing="0" border=1>';
+    echo '<th>Кур’єр</th>';
+    echo '<th>Кільк.(прим.)</th>';
+    echo '<th>Кільк.(С.К.)</th>';
+    echo '<th>Кільк.(винос. конт.)</th>';
+    echo '<th>Кільк.(ВБШ)</th>';
+    echo '<th>Кільк.(У кв.)</th>';
+    echo '<th>Кільк.(буд.)</th>';
+     
+    echo '<th>Вартicть(прим.)</th>';
+    echo '<th>Вартicть(С.К.)</th>';
+    echo '<th>Вартicть(винос. конт.)</th>';
+    echo '<th>Вартicть(ВБШ)</th>';
+    echo '<th>Вартicть(У кв.)</th>';
+    echo '<th>Вартicть(буд.)</th>';
+    echo '<th>Вартicть усього</th>';
+    
+    $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
+    if ($result) {
+        
+        $rows_count = pg_num_rows($result);
+        
+        $i=0;
+        while ($row = pg_fetch_array($result)) {
+
+            $runner = htmlspecialchars($row['runner']);
+            //echo $runner;
+            //return;
+            
+            $place1 = htmlspecialchars($row['place1']);
+            if($place1==0) $place1='';
+            $place2 = htmlspecialchars($row['place2']);
+            if($place2==0) $place2='';
+            $place3 = htmlspecialchars($row['place3']);
+            if($place3==0) $place3='';
+            $place4 = htmlspecialchars($row['place4']);
+            if($place4==0) $place4='';
+            $place5 = htmlspecialchars($row['place5']);
+            if($place5==0) $place5='';
+            $place6 = htmlspecialchars($row['place6']);
+            if($place6==0) $place6='';
+            
+            $cost1 = htmlspecialchars($row['cost1']);
+            if($cost1==0) $cost1='';
+            $cost2 = htmlspecialchars($row['cost2']);
+            if($cost2==0) $cost2='';
+            $cost3 = htmlspecialchars($row['cost3']);
+            if($cost3==0) $cost3='';
+            $cost4 = htmlspecialchars($row['cost4']);
+            if($cost4==0) $cost4='';
+            $cost5 = htmlspecialchars($row['cost5']);
+            if($cost5==0) $cost5='';
+            $cost6 = htmlspecialchars($row['cost6']);
+            if($cost6==0) $cost6='';
+            $cost_all = htmlspecialchars($row['cost_all']);
+            if($cost_all==0) $cost_all='';            
+           
+            echo "
+            <tr >
+            <td class='c_i'>{$runner}</td>
+            <td class='c_i'>{$place1}</td>
+            <td class='c_i'>{$place2}</td>
+            <td class='c_i'>{$place3}</td>
+            <td class='c_i'>{$place4}</td>
+            <td class='c_i'>{$place5}</td>
+            <td class='c_i'>{$place6}</td>
+            <td class='c_i'>{$cost1}</td>  
+            <td class='c_i'>{$cost2}</td>     
+            <td class='c_i'>{$cost3}</td>
+            <td class='c_i'>{$cost4}</td> 
+            <td class='c_i'>{$cost5}</td>  
+            <td class='c_i'>{$cost6}</td>     
+            <td class='c_i'>{$cost_all}</td>     
+            </tr>  ";        
+            $i++;
+        }
+       
+    }
+    
+     echo "</table>";
+}
+
+
+
+if ($oper=='indic_summary_insp_new')
+{
+    $p_mmgg = trim(sql_field_val('dt_b', 'mmgg'));
+    $mmgg1_str = trim($_POST['period_str']);
+    $year_n = substr($p_mmgg,1,4);
+    $month_n = substr($p_mmgg,6,2);
+    
+    $d_begin = "'".date("Y-m-d", strtotime($pp_dt_b))."'";
+    $d_end   = "'".date("Y-m-d", strtotime($pp_dt_e))."'";
+    
+    $month_n=substr($pp_dt_e,3,2);
+    $yearn_n = substr($pp_dt_e,6,4);        
+    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+    
+    $p_id_region = sql_field_val('id_region', 'int');
+    
+    if($res_code!='310')
+      $caption1 = 'Кур`єр';
+    else
+      $caption1 = 'Контролер';    
+        
+    $params_caption ='';
+    $where = ' ';    
+
+   
+$SQL="SELECT * from job_controler(".$param_date.','.$d_begin.','.$d_end.')';
+//echo $SQL;
+
+
+   // throw new Exception(json_encode($SQL));
+    $sum_cnt_all=0;
+    $sum_cnt_list=0;
+    
+    echo '</br>';
+    echo $mmgg1_str;
+    echo '<table cellpadding="0" cellspacing="0" border=1>';
+    echo '<th>Кур’єр</th>';
+    echo '<th>Кільк.(прим.)</th>';
+    echo '<th>Кільк.(С.К.)</th>';
+    echo '<th>Кільк.(винос. конт.)</th>';
+    echo '<th>Кільк.(ВБШ)</th>';
+    echo '<th>Кільк.(У кв.)</th>';
+    echo '<th>Кільк.(буд.)</th>';
+     
+    echo '<th>Вартicть(прим.)</th>';
+    echo '<th>Вартicть(С.К.)</th>';
+    echo '<th>Вартicть(винос. конт.)</th>';
+    echo '<th>Вартicть(ВБШ)</th>';
+    echo '<th>Вартicть(У кв.)</th>';
+    echo '<th>Вартicть(буд.)</th>';
+    echo '<th>Вартicть усього</th>';
+    
+    $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
+    if ($result) {
+        
+        $rows_count = pg_num_rows($result);
+        
+        $i=0;
+        while ($row = pg_fetch_array($result)) {
+
+            $runner = htmlspecialchars($row['runner']);
+            //echo $runner;
+            //return;
+            
+            $place1 = htmlspecialchars($row['place1']);
+            if($place1==0) $place1='';
+            $place2 = htmlspecialchars($row['place2']);
+            if($place2==0) $place2='';
+            $place3 = htmlspecialchars($row['place3']);
+            if($place3==0) $place3='';
+            $place4 = htmlspecialchars($row['place4']);
+            if($place4==0) $place4='';
+            $place5 = htmlspecialchars($row['place5']);
+            if($place5==0) $place5='';
+            $place6 = htmlspecialchars($row['place6']);
+            if($place6==0) $place6='';
+            
+            $cost1 = htmlspecialchars($row['cost1']);
+            if($cost1==0) $cost1='';
+            $cost2 = htmlspecialchars($row['cost2']);
+            if($cost2==0) $cost2='';
+            $cost3 = htmlspecialchars($row['cost3']);
+            if($cost3==0) $cost3='';
+            $cost4 = htmlspecialchars($row['cost4']);
+            if($cost4==0) $cost4='';
+            $cost5 = htmlspecialchars($row['cost5']);
+            if($cost5==0) $cost5='';
+            $cost6 = htmlspecialchars($row['cost6']);
+            if($cost6==0) $cost6='';
+            $cost_all = htmlspecialchars($row['cost_all']);
+            if($cost_all==0) $cost_all='';            
+           
+            echo "
+            <tr >
+            <td class='c_i'>{$runner}</td>
+            <td class='c_i'>{$place1}</td>
+            <td class='c_i'>{$place2}</td>
+            <td class='c_i'>{$place3}</td>
+            <td class='c_i'>{$place4}</td>
+            <td class='c_i'>{$place5}</td>
+            <td class='c_i'>{$place6}</td>
+            <td class='c_i'>{$cost1}</td>  
+            <td class='c_i'>{$cost2}</td>     
+            <td class='c_i'>{$cost3}</td>
+            <td class='c_i'>{$cost4}</td> 
+            <td class='c_i'>{$cost5}</td>  
+            <td class='c_i'>{$cost6}</td>     
+            <td class='c_i'>{$cost_all}</td>     
+            </tr>  ";        
+            $i++;
+        }
+       
+    }
+    
+     echo "</table>";
+}
+
+
+
+//if(1==2) {
+if ($oper=='indic_summary_counter_new')
+{
+    $p_mmgg = trim(sql_field_val('dt_b', 'mmgg'));
+    $mmgg1_str = trim($_POST['period_str']);
+    
+    $year_n = substr($p_mmgg,1,4);
+    $month_n = substr($p_mmgg,6,2);
+    
+
+    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+    $p_id_region = sql_field_val('id_region', 'int');
+    
+   
+    if($res_code!='310')
+      $caption1 = 'Кур`єр';
+    else
+      $caption1 = 'Контролер';    
+        
+    $params_caption ='';
+    $where = ' ';    
+   
+   
+$SQL="SELECT * from job_counter_detail(".$param_date.",'".$pp_person."'".')';
+//$SQL="SELECT * from job_counter_detail()";
+
+$f=fopen('aaa','w+');
+fputs($f,$SQL);
+
+
+   // throw new Exception(json_encode($SQL));
+    $sum_cnt_all=0;
+    $sum_cnt_list=0;
+    
+    echo '</br>';
+    echo $mmgg1_str.'.';
+    echo '  [Звіт по кількості лічильників по місцям установки]';
+    //echo $SQL;
+    echo '<table cellpadding="0" cellspacing="0" border=1>';
+    echo '<th>Дільниця</th>';
+    echo '<th>Кур’єр</th>';
+    echo '<th>Кільк.(прим.)</th>';
+    echo '<th>Кільк.(С.К.)</th>';
+    echo '<th>Кільк.(винос. конт.)</th>';
+    echo '<th>Кільк.(ВБШ)</th>';
+    echo '<th>Кільк.(У кв.)</th>';
+     echo '<th>Кільк.(буд.)</th>';
+     
+    echo '<th>Днів(прим.)</th>';
+    echo '<th>Днів(С.К.)</th>';
+    echo '<th>Днів(винос. конт.)</th>';
+    echo '<th>Днів(ВБШ)</th>';
+    echo '<th>Днів(У кв.)</th>';
+    echo '<th>Днів(буд.)</th>';
+    echo '<th>Днів усього</th>';
+    
+    $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
+    if ($result) {
+        
+        $rows_count = pg_num_rows($result);
+        
+        $i=0;
+        $splace1=0;
+        $splace2=0;
+        $splace3=0;
+        $splace4=0;
+        $splace5=0;
+        $splace6=0;
+        $scost1=0;
+        $scost2=0;
+        $scost3=0;
+        $scost4=0;
+        $scost5=0;
+        $scost6=0;
+        $scost_all=0;
+        
+        while ($row = pg_fetch_array($result)) {
+            $sector = htmlspecialchars($row['sector']);
+            $runner = htmlspecialchars($row['runner']);
+            $place1 = htmlspecialchars($row['place1']);
+            if($place1==0) $place1='';
+            $place2 = htmlspecialchars($row['place2']);
+            if($place2==0) $place2='';
+            $place3 = htmlspecialchars($row['place3']);
+            if($place3==0) $place3='';
+            $place4 = htmlspecialchars($row['place4']);
+            if($place4==0) $place4='';
+            $place5 = htmlspecialchars($row['place5']);
+            if($place5==0) $place5='';
+            $place6 = htmlspecialchars($row['place6']);
+            if($place6==0) $place6='';
+            
+            $cost1 = htmlspecialchars($row['cost1']);
+            if($cost1==0) $cost1='';
+            $cost2 = htmlspecialchars($row['cost2']);
+            if($cost2==0) $cost2='';
+            $cost3 = htmlspecialchars($row['cost3']);
+            if($cost3==0) $cost3='';
+            $cost4 = htmlspecialchars($row['cost4']);
+            if($cost4==0) $cost4='';
+            $cost5 = htmlspecialchars($row['cost5']);
+            if($cost5==0) $cost5='';
+            $cost6 = htmlspecialchars($row['cost6']);
+            if($cost6==0) $cost6='';
+            $cost_all = htmlspecialchars($row['cost_all']);
+            if($cost_all==0) $cost_all='';  
+            
+            $splace1+=$place1;
+            $splace2+=$place2;
+            $splace3+=$place3;
+            $splace4+=$place4;
+            $splace5+=$place5;
+            $splace6+=$place6;
+            $scost1+=$cost1;
+            $scost2+=$cost2;
+            $scost3+=$cost3;
+            $scost4+=$cost4;
+            $scost5+=$cost5;
+            $scost6+=$cost6;
+            $scost_all+=$cost_all;
+           
+            echo "
+            <tr >
+            <td class='c_i'>{$sector}</td>
+            <td class='c_i'>{$runner}</td>
+            <td class='c_i'>{$place1}</td>
+            <td class='c_i'>{$place2}</td>
+            <td class='c_i'>{$place3}</td>
+            <td class='c_i'>{$place4}</td>
+            <td class='c_i'>{$place5}</td>
+            <td class='c_i'>{$place6}</td>
+            <td class='c_i'>{$cost1}</td>  
+            <td class='c_i'>{$cost2}</td>     
+            <td class='c_i'>{$cost3}</td>
+            <td class='c_i'>{$cost4}</td> 
+            <td class='c_i'>{$cost5}</td>  
+            <td class='c_i'>{$cost6}</td>
+            <td class='c_i'>{$cost_all}</td>     
+            </tr>  ";        
+            $i++;
+        }
+         echo "
+         <tr >
+            <td class='c_i_all'>Усього:</td>
+            <td class='c_i_all'></td>
+            <td class='c_i_all'>{$splace1}</td>
+            <td class='c_i_all'>{$splace2}</td>
+            <td class='c_i_all'>{$splace3}</td>
+            <td class='c_i_all'>{$splace4}</td>
+            <td class='c_i_all'>{$splace5}</td>
+            <td class='c_i_all'>{$splace6}</td>
+            <td class='c_i_all'>{$scost1}</td>  
+            <td class='c_i_all'>{$scost2}</td>     
+            <td class='c_i_all'>{$scost3}</td>
+            <td class='c_i_all'>{$scost4}</td> 
+            <td class='c_i_all'>{$scost5}</td> 
+            <td class='c_i_all'>{$scost6}</td>     
+            <td class='c_i_all'>{$scost_all}</td>     
+        </tr>  ";
+        
+    }
+    
+     echo "</table>";
+}
+//}
+
+// Новая версия ведомости по количеству счетчиков
+//if ($oper=='indic_summary_counter_new')
+//{
+//    $p_mmgg = trim(sql_field_val('dt_b', 'mmgg'));
+//    $mmgg1_str = trim($_POST['period_str']);
+//    
+//    $year_n = substr($p_mmgg,1,4);
+//    $month_n = substr($p_mmgg,6,2);
+//    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+//    $p_id_region = sql_field_val('id_region', 'int');
+//    
+//    $app_version='20171019';
+
+//    print('<link rel="stylesheet" type="text/css" href="css/ded_styles.css" /> ');
+//    //print("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"css/ui.jqgrid.css\" /> \n ");
+//
+//    print('<script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script> ');
+//    print('<script type="text/javascript" src="js/jquery.form.js"></script>');
+//    print('<script type="text/javascript" src="js/jquery.validate.min.js?version='.$app_version.'" ></script>');
+//    print('<script type="text/javascript" src="js/jquery.ui.datepicker-uk.js"></script> ');
+//    print('<script type="text/javascript" src="js/jquery.maskedinput-1.3.min.js"></script> ');
+//    print('<script type="text/javascript" src="js/jquery.layout.min-latest.js"></SCRIPT>');
+//    print('<script type="text/javascript" src="js/jquery.layout.resizeTabLayout.min-1.2.js"></SCRIPT>');
+//    print('<script type="text/javascript" src="js/date-uk-UA.js"></script> ');  
+    //print("<script type=\"text/javascript\" src=\"js/i18n/grid.locale-ua.js\"></script> \n");
+    //print("<script type=\"text/javascript\" src=\"js/jquery.jqGrid.min.js\"></script> \n");
+//    print('<script type="text/javascript" src="controlers_counters.js?version='.$app_version.'"></script> ');
+//}    
+
+if ($oper=='indic_summary_insp_detail_new')
+{
+    $p_mmgg = trim(sql_field_val('dt_b', 'mmgg'));
+    $mmgg1_str = trim($_POST['period_str']);
+    $year_n = substr($p_mmgg,1,4);
+    $month_n = substr($p_mmgg,6,2);
+    //$param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+    $p_id_region = sql_field_val('id_region', 'int');
+    
+    $d_begin = "'".date("Y-m-d", strtotime($pp_dt_b))."'";
+    $d_end   = "'".date("Y-m-d", strtotime($pp_dt_e))."'";
+    $month_n=substr($pp_dt_e,3,2);
+    $yearn_n = substr($pp_dt_e,6,4);        
+    $param_date = "'".$year_n.'-'.$month_n.'-01'."'";
+    
+    if($res_code!='310')
+      $caption1 = 'Кур`єр';
+    else
+      $caption1 = 'Контролер';    
+        
+    $params_caption ='';
+    $where = ' ';    
+
+   
+$SQL="SELECT * from job_controler_detail(".$param_date.','.$d_begin.','.$d_end.','."'".$pp_person."'".')';
+
+
+   // throw new Exception(json_encode($SQL));
+    $sum_cnt_all=0;
+    $sum_cnt_list=0;
+    
+    echo '</br>';
+    echo $mmgg1_str;
+    echo '<table cellpadding="0" cellspacing="0" border=1>';
+    echo '<th>Дільниця</th>';
+    echo '<th>Кур’єр</th>';
+    echo '<th>Кільк.(прим.)</th>';
+    echo '<th>Кільк.(С.К.)</th>';
+    echo '<th>Кільк.(винос. конт.)</th>';
+    echo '<th>Кільк.(ВБШ)</th>';
+    echo '<th>Кільк.(У кв.)</th>';
+    echo '<th>Кільк.(буд.)</th>';
+     
+//    echo '<th>Вартicть(прим.)</th>';
+//    echo '<th>Вартicть(С.К.)</th>';
+//    echo '<th>Вартicть(винос. конт.)</th>';
+//    echo '<th>Вартicть(ВБШ)</th>';
+//    echo '<th>Вартicть(У кв.)</th>';
+//    echo '<th>Вартicть(буд.)</th>';
+//    echo '<th>Вартicть усього</th>';
+    
+    $result = pg_query($Link, $SQL) or die("SQL Error: " . pg_last_error($Link) . $SQL);
+    if ($result) {
+        
+        $rows_count = pg_num_rows($result);
+        
+        $i=0;
+        $splace1=0;
+        $splace2=0;
+        $splace3=0;
+        $splace4=0;
+        $splace5=0;
+        $splace6=0;
+        $scost1=0;
+        $scost2=0;
+        $scost3=0;
+        $scost4=0;
+        $scost5=0;
+        $scost6=0;
+        $scost_all=0;
+        
+        while ($row = pg_fetch_array($result)) {
+            $sector = htmlspecialchars($row['sector']);
+            $runner = htmlspecialchars($row['runner']);
+            $place1 = htmlspecialchars($row['place1']);
+            if($place1==0) $place1='';
+            $place2 = htmlspecialchars($row['place2']);
+            if($place2==0) $place2='';
+            $place3 = htmlspecialchars($row['place3']);
+            if($place3==0) $place3='';
+            $place4 = htmlspecialchars($row['place4']);
+            if($place4==0) $place4='';
+            $place5 = htmlspecialchars($row['place5']);
+            if($place5==0) $place5='';
+            $place6 = htmlspecialchars($row['place6']);
+            if($place6==0) $place6='';
+            
+            $cost1 = htmlspecialchars($row['cost1']);
+            if($cost1==0) $cost1='';
+            $cost2 = htmlspecialchars($row['cost2']);
+            if($cost2==0) $cost2='';
+            $cost3 = htmlspecialchars($row['cost3']);
+            if($cost3==0) $cost3='';
+            $cost4 = htmlspecialchars($row['cost4']);
+            if($cost4==0) $cost4='';
+            $cost5 = htmlspecialchars($row['cost5']);
+            if($cost5==0) $cost5='';
+            $cost6 = htmlspecialchars($row['cost6']);
+            if($cost6==0) $cost6='';
+            $cost_all = htmlspecialchars($row['cost_all']);
+            if($cost_all==0) $cost_all='';  
+            
+            $splace1+=$place1;
+            $splace2+=$place2;
+            $splace3+=$place3;
+            $splace4+=$place4;
+            $splace5+=$place5;
+            $splace6+=$place6;
+            $scost1+=$cost1;
+            $scost2+=$cost2;
+            $scost3+=$cost3;
+            $scost4+=$cost4;
+            $scost5+=$cost5;
+            $scost6+=$cost6;
+            $scost_all+=$cost_all;
+           
+            echo "
+            <tr >
+            <td class='c_i'>{$sector}</td>
+            <td class='c_i'>{$runner}</td>
+            <td class='c_i'>{$place1}</td>
+            <td class='c_i'>{$place2}</td>
+            <td class='c_i'>{$place3}</td>
+            <td class='c_i'>{$place4}</td>
+            <td class='c_i'>{$place5}</td>
+            <td class='c_i'>{$place6}</td>
+
+            </tr>  ";        
+            $i++;
+        }
+         echo "
+         <tr >
+            <td class='c_i_all'>Усього:</td>
+            <td class='c_i_all'></td>
+            <td class='c_i_all'>{$splace1}</td>
+            <td class='c_i_all'>{$splace2}</td>
+            <td class='c_i_all'>{$splace3}</td>
+            <td class='c_i_all'>{$splace4}</td>
+            <td class='c_i_all'>{$splace5}</td>
+            <td class='c_i_all'>{$splace6}</td>
+
+        </tr>  ";
+        
+    }
+    
+     echo "</table>";
+}
+
+
 //----------------------------------------------------------------------------
 
 if (($oper=='abon_list')||($oper=='abon_list_3f')||

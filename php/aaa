@@ -1,0 +1,1 @@
+SELECT * from job_counter_detail('2018-02-01','Мокра Наталія Володимирівна')

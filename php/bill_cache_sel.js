@@ -15,7 +15,7 @@ var createBillCache = function(){
     datatype: 'json',
     mtype: 'POST',
     height:300,
-    width:500,
+    width:600,
     colNames:[],
     colModel :[ 
     {name:'id_doc', index:'id_doc', width:40, editable: false, align:'center', key:true ,hidden:true},

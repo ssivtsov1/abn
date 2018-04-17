@@ -45,6 +45,9 @@ if (!($result)) {
 
 $SQL = "select calc_plan_demand($mmgg); ";
 //$SQL = "select 1; ";
+$f=fopen('aaa','w+');
+fputs($f,$SQL);
+
 
 $result = pg_query($Link, $SQL);
 if ($result) {

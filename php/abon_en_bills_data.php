@@ -137,6 +137,8 @@ left join syi_user as u1 on (u1.id = b.id_person)
 ) as ss
   $qWhere Order by $sidx $sord LIMIT $limit OFFSET $start ";
 
+$f=fopen('aaa.sql','w+');
+fputs($f,$SQL);
 
 $result = pg_query($Link,$SQL) or die("SQL Error: " .pg_last_error($Link).$SQL );
  if (!$result) { print("<br> no records found");}

@@ -38,6 +38,7 @@ $fildsArray['street'] =   array('f_name'=>'street','f_type'=>'character varying'
 
 if($flag_cek){
     $fildsArray['house'] =   array('f_name'=>'house','f_type'=>'char');
+    $fildsArray['house_letter'] =   array('f_name'=>'house_letter','f_type'=>'char');
 }
 else {
     $fildsArray['house'] =   array('f_name'=>'house','f_type'=>'character varying');
@@ -221,6 +222,9 @@ left join prs_runner_sectors as ps on (ps.id = pp.id_sector)
   $qWhere Order by $sidx $sord LIMIT $limit OFFSET $start ";
 }
     
+//$ff=fopen('aaa_sql','w');
+//fputs($ff,$SQL);
+//fclose($ff);
 
 //throw new Exception(json_encode($SQL));
 

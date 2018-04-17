@@ -51,6 +51,8 @@ $Query= " select nm_txt from nm_db where nm_db = '{$base}' ;";
 $Query= " select sys_check_pwd ($id_user,$passwd)::int as r;";
 
  $result=pg_query($link,$Query);
+
+ 
  if (!($result)) 
  {
    echo_result(2,pg_last_error($Link));
@@ -59,7 +61,7 @@ $Query= " select sys_check_pwd ($id_user,$passwd)::int as r;";
  else 
  {
      $row = pg_fetch_array($result);
-     if ($row['r']==0)
+     if ($row['r']==1)
      {
         if (isset($_SESSION['id_sess'])) {
             unset($_SESSION['id_sess']);  // when we use this id_sess?

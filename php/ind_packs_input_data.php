@@ -172,7 +172,9 @@ left join clm_plandemand_tbl as plan on (plan.id_paccnt = acc.id and plan.id_zon
 ) as ss
   $qWhere Order by $sidx $sord ";
 
-//die( $SQL );
+$ff=fopen("asql.txt","w");
+fputs($ff,$SQL) ;
+
 //---------------- -- -- --------------- -- -- -----------------------------//
 
 $Query = "CREATE temp SEQUENCE row_numbers_seq minvalue 1;";

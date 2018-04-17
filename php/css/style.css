@@ -238,3 +238,8 @@ span.error{
     color:#666;
     text-shadow:1px 1px 1px #fff;
 }
+#bindic_summary_insp1, #bindic_summary_insp2, {
+	font-weight:bold;
+	color:#14a7a2;
+}
+

@@ -102,6 +102,8 @@ jQuery(function(){
     jQuery(".btn").button();
     jQuery(".btnSel").button({text: false,icons: {primary:'ui-icon-folder-open'}});
     jQuery(".btnClear").button({text: false,icons: {primary:'ui-icon-cancel'}});
+    jQuery(".btnPlan").button({text: false,icons: {primary:'ui-icon-pencil'}});
+    jQuery(".btnPlanID").button({text: false,icons: {primary:'	ui-icon-script'}});
     
     jQuery(":input").addClass("ui-widget-content ui-corner-all");
     
@@ -273,7 +275,33 @@ jQuery(function(){
         jQuery("#grid_selsector").css({'left': jQuery("#fsector").offset().left+1,'top': jQuery("#fsector").offset().top+20});
         jQuery("#grid_selsector").toggle( );
     });
-
+    
+    //Вызов формы планирования для контролеров
+    jQuery("#btSectorPlan").click( function() {
+        var cntr = $("#fperson").attr("value");
+        if(cntr==''){
+            alert('Виберіть працівника(контролера)')
+            return 0;
+        }
+        var dt_1 = $("#fdt_b").val();
+        var url_par = 'controlers_counters_data.php?'+dt_1;
+        //location.reload();
+        createPlanGrid(); 
+        jQuery("#pcontrolers_counters_table").toggle( );
+    });
+    
+    
+    jQuery("#btSectorPlanID").click( function() {
+        var cntr = $("#fperson").attr("value");
+        if(cntr==''){
+            alert('Виберіть працівника(контролера)')
+            return 0;
+        }
+        createPlanViewGrid(); 
+        jQuery("#grid_planview").show( );
+    });
+    
+    
     jQuery("#btSectorClear").click( function() { 
         jQuery("#fid_sector").attr('value','' );
         jQuery("#fsector").attr('value','' );    

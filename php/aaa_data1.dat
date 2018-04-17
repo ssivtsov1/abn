@@ -1,0 +1,9 @@
+update ind_pack_header t
+             set id_runner=p.id
+             from 
+             prs_runner_sectors as s, act_plan_cache_tbl as p4, prs_persons as p
+             where s.id = t.id_sector
+             and trim(s.name) = trim(p4.sector)
+             and trim(p.represent_name) = trim(p4.cntr)
+             and p4.year=2018 and p4.month=02
+             and trim(s.name)='8 (1Т ТП-14)' and trim(p4.cntr)='Логвін Богдан Віталіевич' and t.work_period='01.02.2018'

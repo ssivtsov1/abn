@@ -1,0 +1,4 @@
+select fiz_plandemant_import_dnepr_fun('2018-01-01', '2018-12-01') ;
+delete from clm_plandemand_tbl where demand >9999;
+select c.book,c.code,'нет плана' 
+from clm_paccnt_tbl c left join (select distinct id_paccnt from clm_plandemand_tbl where mmgg>='2018-01-01') cp on cp.id_paccnt=c.id where cp.id_paccnt is null order by book,code;

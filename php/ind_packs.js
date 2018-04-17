@@ -723,7 +723,8 @@ jQuery("#btSectorSel").click( function() {
     sector_target_runner_id=jQuery("#fid_runner");
     sector_target_runner_name=jQuery("#frunner");
 
-    createSectorGrid(); 
+    //createSectorGrid(); 
+    createSectorGrid_ind_packs();
     jQuery("#grid_selsector").css({'left': $(this).position().left+1, 'top': $(this).position().top+20});
     jQuery("#grid_selsector").toggle( );
     jQuery("#grid_selsector").find("input[type='text']:visible:enabled:first").focus();    

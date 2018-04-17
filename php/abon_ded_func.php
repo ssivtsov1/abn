@@ -199,9 +199,9 @@ function DbTableSelList($lnk,$table,$fid,$fname) {
 function DbTableSelect($lnk,$table,$fid,$fname) {
     // для лукапа из формы    
     $SQL = "select $fid, $fname from $table Order by $fid ";
-
+         
     $result = pg_query($lnk,$SQL);
-
+    //echo pg_last_error();   
     if (!$result) { $res_str = "";}
     else {
     
@@ -233,6 +233,7 @@ function DbGetFieldsArray($lnk,$table) {
         {
             $array[$row['column_name']]= array('f_name'=>$row['column_name'],'f_type'=>$row['data_type']);
         }
+       
 
     } 
     return $array;
@@ -368,7 +369,27 @@ if ((((isset($_POST_val['_search']) && $_POST_val['_search'] == 'true')||
 }
 
 if ($qW == ' WHERE ') {$qW ='';};
-    
+
+// Отладка
+//$ff=fopen('aaa','w');
+//fputs($ff,$qW);
+//fclose($ff);
+
+//$f = fopen("log.txt","a+");
+//$str = implode(" ",var_dump($_POST_val, TRUE));
+//fputs($f, $str); 
+//fclose($f);
+
+//    ob_start();
+//    var_dump($_POST_val);
+//    $output = ob_get_clean();
+//    file_put_contents('aaa', $output);
+//    
+//    ob_start();
+//    var_dump($farrey);
+//    $output = ob_get_clean();
+//    file_put_contents('aaa', $output);
+
 return $qW;    
 }
 
