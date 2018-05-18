@@ -1,0 +1,53 @@
+<div align='center' style='width:630px'>
+<p class='shtamp'><B>ПАТ \"ЧЕРНІГІВОБЛЕНЕРГО\"<BR/>
+                    {$dapartment}</B>
+</p> 
+    <BR/><BR/>
+<p align='center' class='head'>Довідка №{$p_num_sp} від {$date} <BR/>
+                             про розмір плати за спожиту електроенергію <BR/> 
+                             згідно з запитом № {$p_num_input} від {$p_dt_input} <BR/> 
+                             за {$mmgg1_str }р.     
+</p>
+<span class='rows' style='width:65px;'>Видана: </span><span class='rows' style='width:365px;'>{$abn}</span> <span class='rows' style='text-align:right; width:190px;'> Особовий рахунок:{$person_acc}</span> 
+<span class='rows' style='width:230px;'>Який(а) зареєстрований(а) за адресою: </span><span class='rows' style='width:400px;'>{$adr}</span> 
+<span class='rows' style='width:630px;'>Кількість зареєстрованих чоловік:  {$p_people_count}</span>
+<span class='rows' style='width:100px;'>Наявність пільг:  </span><hr class='rows' color='black' width='20px' size='1px' />
+<!--<span class='rows' style='width:630px;'>Є в наявності: {$in_stock}. </span>
+<span class='rows' style='width:630px; margin-bottom:5px;'>Відсутньо: {$absent}. </span>-->
+{$manual_param_info}
+$heat_area_txt
+<table  border='1'  align='left'>
+    <tr>
+        <td rowspan='2' width='230'></td>
+        <td colspan='3' >Тариф, грн. за 1 кВт/год</td>
+    </tr>  
+    <tr>
+        <td>нічний </td>
+        <td>напівпік</td>
+        <td>піковий</td>
+    </tr>  
+
+    <tr >
+        <td width='230'>За обсяг, спожитий до {$tar_dem1} кВт/год електроенергії на місяць (включно)</td>
+        <td>{$tar_val11}</td>
+        <td>{$tar_val12}</td>
+        <td>{$tar_val13}</td>
+    </tr> 
+    <tr >
+        <td width='230'>За обсяг, спожитий понад {$tar_dem1} <!--до {$tar_dem2}--> кВт/год електроенергії на місяць (включно)</td>
+        <td>{$tar_val21}</td>
+        <td>{$tar_val22}</td>
+        <td>{$tar_val23}</td>
+    </tr> 
+</table>
+
+$rozrahunok_txt
+<br/>
+{$manual_param_info_bottom}
+
+<BR/><span class='rows' style='width:600px'>Інформація про прострочену понад  2 місяця заборгованість : {$debet_2month_txt} </span> <BR/>
+<span class='rows' style='margin-bottom:10px;'>Довідка видана для подання до відділу субсидій.<BR/></span>
+<span class='rows' style='width:400px;'>{$director_pos}</span><span class='rows' style='width:90px; '>______________ <BR/>М.П.</span>&nbsp; <span class='rows' style='width:125px; margin-left:5px; text-align:right'> {$director}</span> 
+<span class='rows'>Вик. {$executor}&nbsp;&nbsp; ______________  <BR/>тел. {$phone}</span> 
+   
+</div>

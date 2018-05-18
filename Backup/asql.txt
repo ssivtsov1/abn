@@ -1,0 +1,66 @@
+ select * from (select pd.*, acc.book, acc.code, pd.indic_real::int as indic_real_int, 
+ adr.street||' '||address_print(acc.addr) as address, adr.street, (acc.addr).korp as korp,
+  adr_full.adr as street_full,
+  date_part('day',dt_indic) as day_indic,
+ (c.last_name||' '||coalesce(c.name,'')||' '||coalesce(c.patron_name,''))::varchar as abon,
+ im.name as type_meter,i.value as p_indic, i.dat_ind as dt_p_indic ,bb.p_demand,
+ round(calc_demand_carry(pd.indic,i.value,pd.carry),0)::int as demand,
+('0'||coalesce(regexp_replace(regexp_replace((acc.addr).house, '-.*?$', '') , '[^0-9]', '','g'),''))::int as int_house,
+(acc.addr).house as house, 
+('0'||coalesce(regexp_replace(regexp_replace((acc.addr).flat, '-.*?$', '') , '[^0-9]', '','g'),''))::int as int_flat,
+('0'||substring(acc.code FROM '[0-9]+'))::int as int_code,
+('0'||substring(acc.book FROM '[0-9]+'))::int as int_book,   
+CASE WHEN mp.id is null THEN '#' WHEN coalesce(acc.activ,false) = false then 'В' 
+ WHEN acc.not_live = true THEN 'Н' WHEN acc.idk_house=3 THEN 'Д' 
+ WHEN n.id_paccnt is not null THEN 'Т' 
+ WHEN sb.id_paccnt is not null THEN 'S'
+ WHEN coalesce(lg.lgt_cnt,0)>0 THEN 'П'
+END as status,
+lg.lgt_code, mit.name as last_operation_name, li.last_dat_ind, li.last_value, plan.demand as plan_demand
+from 
+ind_pack_data as pd 
+join clm_paccnt_tbl as acc on (acc.id = pd.id_paccnt)
+join clm_abon_tbl as c on (c.id = acc.id_abon) 
+join eqi_meter_tbl as im on (im.id = pd.id_type_meter)
+join adt_addr_town_street_tbl as adr on (adr.id = (acc.addr).id_class)
+join adt_addr_tbl as adr_full on (adr_full.id = (acc.addr).id_class)
+left join acm_indication_tbl as i on (i.id = pd.id_p_indic)
+left join (
+  select la.id_paccnt, count(*) as lgt_cnt, max(lg.alt_code) as lgt_code 
+     from lgm_abon_tbl as la
+     join lgi_group_tbl as lg on (lg.id = la.id_grp_lgt)
+     where ((la.dt_start < ('2017-11-01'::date+'1 month'::interval) and la.dt_end is null)
+            or 
+            tintervalov(tinterval(la.dt_start::timestamp::abstime,la.dt_end::timestamp::abstime),tinterval('2017-11-01'::timestamp::abstime,('2017-11-01'::date+'1 month - 1 day'::interval)::timestamp::abstime)))
+     group by la.id_paccnt order by la.id_paccnt
+ )  as lg on (lg.id_paccnt = acc.id)
+left join (
+  select b.id_paccnt, s.id_zone,sum(s.demand) as p_demand
+  from acm_bill_tbl as b 
+  join acm_summ_tbl as s on (b.id_doc=s.id_doc)
+  where  b.id_pref = 10
+  and b.mmgg_bill = ('2017-11-01'::date -'1 month'::interval)::date
+  group by b.id_paccnt, s.id_zone
+) as bb on (bb.id_paccnt = acc.id and pd.id_zone = bb.id_zone)
+left join (
+ select distinct id_paccnt 
+ from acm_subs_tbl as s 
+ join (select max(mmgg) as mmgg from acm_subs_tbl where mmgg <= '2017-11-01'::date ) as mm on (mm.mmgg = s.mmgg)
+ where tintervalov(tinterval(dt_b::timestamp::abstime,dt_e::timestamp::abstime),tinterval('2017-11-01'::timestamp::abstime,('2017-11-01'::date+'1 month - 1 day'::interval)::timestamp::abstime))
+ and s.dt_b is not null
+ ) as sb on (sb.id_paccnt = acc.id)
+left join clm_meterpoint_tbl as mp on (mp.id = pd.id_meter)
+left join clm_notlive_tbl as n on (n.id_paccnt = pd.id_paccnt 
+  and n.dt_b<=pd.work_period and ((n.dt_e is null) or (n.dt_e>=pd.work_period+'1 month - 1 day'::interval) ))
+left join ( 
+      select i.id_meter, i.id_zone, i.dat_ind as last_dat_ind, i.value as last_value, i.id_operation as last_operation
+      from acm_indication_tbl as i 
+      join (select id_meter, id_zone, max(dat_ind) as max_dat from acm_indication_tbl 
+        group by id_meter, id_zone
+        ) as mi
+      on (i.id_meter = mi.id_meter and i.id_zone = mi.id_zone and i.dat_ind = mi.max_dat)
+) as li on (li.id_meter = pd.id_meter and li.id_zone = pd.id_zone )
+left join cli_indic_type_tbl as mit on (mit.id = li.last_operation)
+left join clm_plandemand_tbl as plan on (plan.id_paccnt = acc.id and plan.id_zone = pd.id_zone and plan.mmgg = '2017-11-01'::date)
+) as ss
+   where  id_pack = 100000791 Order by street_full asc, int_house asc, house asc, korp asc, int_flat asc, int_code asc, code asc, id_zone  asc 

@@ -1,0 +1,11 @@
+
+table.saldo_table { border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0; font-family: "Arial"; font-size: 9px; font-weight:normal;}
+table.saldo_table td { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; }
+table.saldo_table th { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 12px; }
+
+p.header_str {text-indent: 100px; margin-top:1px; margin-bottom: 1px;  padding-bottom: 1px;padding-top: 1px; font-family: "Arial"; font-size: 11px;}
+
+@page {margin-left:1cm; margin-right:1cm;}
+
+
+ 

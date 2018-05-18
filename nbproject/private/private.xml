@@ -15,12 +15,16 @@
             <file>file:/var/www/html/abn/php/runner_sectors_accnt_data.php</file>
             <file>file:/var/www/html/abn/php/abon_en_bills_data.php</file>
             <file>file:/var/www/html/abn/php/controlers_counters.js</file>
+            <file>file:/var/www/html/abn/php/abon_en_paccnt_meters.js</file>
             <file>file:/var/www/html/abn/php/runner_sectors_sel.js</file>
+            <file>file:/var/www/html/abn/php/abon_en_paccnt.js</file>
             <file>file:/var/www/html/abn/php/ind_packs.js</file>
+            <file>file:/var/www/html/abn/php/abon_en_paccnt_meters_data.php</file>
             <file>file:/var/www/html/abn/php/runner_sectors_plan_data.php</file>
             <file>file:/var/www/html/abn/php/ind_packs_data.php</file>
             <file>file:/var/www/html/abn/php/plan_cache_edit.php</file>
             <file>file:/var/www/html/abn/php/abon_en_bills.php</file>
+            <file>file:/var/www/html/abn/php/abon_en_paccnt_data.php</file>
             <file>file:/var/www/html/abn/php/abon_en_bills.js</file>
             <file>file:/var/www/html/abn/php/runner_sectors_cek.js</file>
         </group>

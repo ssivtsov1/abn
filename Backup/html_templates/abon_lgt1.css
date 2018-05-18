@@ -1,0 +1,17 @@
+
+.tab_head {font-family: "Arial"; font-size: 12px; font-weight: bold;}
+.table_footer{font-family: "Arial"; font-size: 12px; font-weight: bold;}
+.table_str{font-family: "Arial"; font-size: 10px; }
+
+/*table.lgt_list_table { border-collapse:initial; border-spacing:0px;border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0; font-family: "Times New Roman", Times, serif; font-size: 11px; }*/
+table.lgt_list_table { border-collapse:initial; border-spacing:0px; font-family: "Times New Roman", Times, serif; font-size: 11px; 
+ border-right:0.3pt solid black; border-left:0; border-bottom:0.3pt solid black; border-top:0;
+}
+table.lgt_list_table td, table.lgt_list_table th { border-left:0.3pt solid black; border-right:0; border-top:0.3pt solid black; border-bottom:0 ; padding:2px; }
+/*table.lgt_list_table td, table.lgt_list_table th { border:0.6px solid black;padding:2px; }*/
+
+
+@page {margin-left:2cm; margin-right:1cm;}
+
+
+ 

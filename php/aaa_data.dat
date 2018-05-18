@@ -1,1 +1,0 @@
-SELECT count(*) as count from job_counter_detail('2018-1-01','')

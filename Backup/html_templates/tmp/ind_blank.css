@@ -1,0 +1,24 @@
+
+.tab_head {font-family: "Times New Roman", Times, serif; font-size: 14px; }
+.table_footer{font-family: "Times New Roman", Times, serif; font-size: 14px; }
+
+table.indic_print_table { border-collapse:collapse; font-family: "Times New Roman", Times, serif; font-size: 14px; }
+table.indic_print_table td { vertical-align:top; page-break-inside: avoid; border:1px dotted rgb(150,150,150);
+    padding-top:1px; padding-bottom: 0px; padding-left:2px;padding-right:0px;}
+table.indic_print_table th { page-break-inside: avoid; border:1px solid rgb(150,150,150);padding:2px; }
+
+.tab_street { border:1px solid black; font-family: "Courier New", Courier, monospace; font-size: 11px; font-weight: bold;}
+#pheader { font-family: "Times New Roman", Times, serif; font-size: 12px; }
+#pheader2 { font-family: "Times New Roman", Times, serif; font-size: 12px; }
+
+.num_met {font-family: "Courier New", Courier, monospace; font-size: 12px; font-weight: bold; }
+.carry {text-align:center }
+
+@page {margin-left:0.3cm; margin-right:0.3cm;
+     size: portrait;
+     counter-increment: page;
+     @bottom-right {
+        padding-right:20px;
+        content: "Page " counter(page);
+      }     
+}

@@ -1,0 +1,131 @@
+
+<TR class='tab_head'>
+<TD>ВСЬОГО </td>
+<TD> </td>
+<TD class='c_r'>{$sum_cnt_all}</td>
+<TD class='c_r'>{$sum_cnt_list}</td>
+<TD> </td>
+</tr>    
+</tbody>
+</table> 
+
+<br/>
+
+<!--
+<br/>
+<TABLE class='footer_table' width='500px'>
+  <TBODY>
+  <TR>
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Директор </B>&nbsp;</P></TD>
+    <TD width='30%'>
+      <P 
+      align=center>____________________</P></TD>
+    <TD width='30%'>
+      <P 
+      align=left><B>{$boss_name}</B></P></TD>
+  </TR>
+
+  <TR>
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Iнженер-контролер</B>&nbsp;</P></TD>
+    <TD width='30%'>
+      <P 
+      align=center>____________________</P></TD>
+    <TD width='30%'>
+      <P 
+      align=left>____________________</P></TD>
+  </TR>
+
+  <TR >
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Оператори</B>&nbsp;</P></TD>
+    <TD colspan='2'>
+      <P align=left>{$operators}</P></TD>
+  </TR>
+
+  </TBODY></TABLE></BR clear=all>
+ --> 
+<div class='summary_table'>
+    
+<H4 style='padding:2px; margin:2px;' align=center>Iнформацiя<BR/>
+    про кiлькiсть показань приладiв облiку, занесених операторами <BR/>
+    в розрiзi ознак<BR/>
+    {$res_short_name} за {$mmgg1_str}. </H4>
+    
+    
+<table class ='indic_table_summary' width='500px' cellspacing='0' cellpadding='0'>
+  <col width='60%' />
+  <col width='20%' />
+  <col width='20%' />
+
+<tr>
+<TH>Назва ознаки</th>
+<TH>Кiлькiсть показань</th> 
+<TH>&nbsp;</th>
+</tr>
+
+<tr>
+<Td>&nbsp;&nbsp;ВСЬОГО</td>
+<Td class='c_r'>{$sum_cnt_all}</td> 
+<Td class='c_r'>{$demand_all_txt} кВтг</td> 
+</tr>
+
+<tr>
+<Td>В тому числi в розрiзi ознак:</td>
+<Td>&nbsp;</td> 
+<Td>&nbsp;</td>
+</tr>
+
+{$summary_txt}
+
+</table>
+</div>
+ <p style='font-size: 12px;'>
+   Всього абонентів, яким було занесено показники (без донарахувань) - {$abon_cnt_txt}
+ </p>
+ 
+ <br/>
+<TABLE class='footer_table' width='500px'>
+  <TBODY>
+  <TR>
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Директор </B>&nbsp;</P></TD>
+    <TD width='30%'>
+      <P 
+      align=center>____________________</P></TD>
+    <TD width='30%'>
+      <P 
+      align=left><B>{$boss_name}</B></P></TD>
+  </TR>
+
+  <TR>
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Iнженер-контролер</B>&nbsp;</P></TD>
+    <TD width='30%'>
+      <P 
+      align=center>____________________</P></TD>
+    <TD width='30%'>
+      <P 
+      align=left>____________________</P></TD>
+  </TR>
+<!--
+  <TR >
+    <TD width='4%'>
+      <P align=left>&nbsp;</P></TD>
+    <TD width='40%'>
+      <P align=right><B>Оператори</B>&nbsp;</P></TD>
+    <TD colspan='2'>
+      <P align=left>{$operators}</P></TD>
+  </TR>
+-->

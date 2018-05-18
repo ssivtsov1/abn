@@ -1,0 +1,80 @@
+
+<table width='800px' cellspacing='0' cellpadding='0' class ='warning_body' >
+  <tr>
+    <td width='30%' >&nbsp;</td>
+    <td width='40%'>
+	  <div align='center'>Абоненту {$abon}	</div></td>
+    <td width='30%'>
+	Особ.рах. {$book}	</td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan='2'> 
+	  <div align='left'>що мешкає за адресою: {$addr}</div>
+    </td>
+
+  </tr>
+
+  <tr>
+    <td colspan='3'> <div align='center' class='warning_header'>
+        <!--     ПОПЕРЕДЖЕННЯ № _______  вiд __________________{$year_warning} р.<br /> -->
+             ПОПЕРЕДЖЕННЯ № _______  вiд {$dt_warning}<br /> 
+    про припинення подачi електричної енергiї побутовому абоненту</div></td>
+  </tr>
+  <tr>
+    <td colspan='3'> 
+	         <p class='warning_p'> 
+		  {$res_print_name} iнформують Вас, що Ви станом на {$dt_sum_str} р. маєте заборгованiсть за використану електричну 
+			   енергiю в сумi {$sum_warning_txt} грн. <br />
+	           У разi несплати заборгованностi, на 30 день пiсля отримання Вами попередження, на пiдставi Правил користування електричною 
+	<!--           енергiєю для населення, Ви будете вiдключенi вiд електромережi з '_____'_____________{$year_warning} р. -->
+                   енергiєю для населення, Ви будете вiдключенi вiд електромережi з {$dt_warning_off} 
+      </p>
+	         <p class='warning_p'>
+	           Попереджуємо, що  вiдновлення  електропостачання  здiйснюється протягом 3 днiв  пiсля оплати заборгованностi, та 
+	           оплати витрат на повторне пiдключення.
+      </p>
+	         <p class='warning_pb'>
+	           З метою запобігання відключенню, оплата, здійснена в тридцятиденний термін, повинна бути негайно пред'явлена
+                   до абонентського відділу {$res_small_name}, за адресою {$res_warning_addr}. <br />
+                   Довідки за телефонами : {$res_warning_phone} 
+      </p>
+      
+    </td>
+  </tr>
+
+
+  <!--<tr style='border-bottom:1px solid black;'> -->
+  <tr >
+    <td colspan='2' style='padding-top:10px; padding-bottom: 7px;'>
+        <p class='warning_p2'>
+      {$warningboss_pos} <br />
+      {$res_print_name}  <br />
+      ПАТ 'Чернігівобленерго'
+        </p>
+ 	</td>
+    <td style='padding-top:2px; padding-bottom: 7px;'>
+      {$warningboss_name}
+ 	</td>
+
+  </tr>
+  <!--
+  <tr style='border-top:1px solid black;'>
+    <td colspan='2' style='padding-bottom: 10px;'>
+        <p class='warning_p2'>
+           Попередження споживач отримав '____'__________{$year_warning} р. {$abon} ({$book})
+        </p>
+	</td>
+    <td style='padding-top:10px; padding-bottom: 10px;'>
+	пiдпис _______________
+	</td>
+
+  </tr>
+    <tr style='border-bottom:1px solid black;'>
+    <td colspan='3' style='padding-top:2px; padding-bottom: 7px;'>
+	Мiсце роботи споживача _______________________________________________   Особовий рахунок {$book} сума боргу {$sum_warning_txt} грн.
+	</td>
+  </tr>
+-->
+</table>

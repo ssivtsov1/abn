@@ -1,0 +1,31 @@
+
+table.indic_table { border-collapse:collapse; font-family: "Arial"; font-size: 10px; font-weight:normal;}
+table.indic_table td { border:0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; }
+table.indic_table th { border:0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 12px; }
+
+table.footer_table { border-collapse:collapse; font-family: "Times New Roman", Times, serif; font-size: 12px; font-weight:bold;page-break-inside: avoid;}
+table.footer_table td { padding:1px; }
+
+table.footer_table td p{ margin-bottom: 3px; margin-top: 5px;}
+
+table.indic_table_summary{ border-collapse:collapse; font-family: "Times New Roman", Times, serif; font-size: 12px; font-weight:normal;}
+table.indic_table_summary td { border:0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px; }
+table.indic_table_summary th { border:0.6pt solid black;padding-top:1px; padding-bottom: 1px; padding-left:2px;padding-right:2px;font-family: "Times New Roman", Times, serif;font-size: 12px; }
+
+.summary_table {width: 500px; page-break-inside: avoid;}
+
+@media print {
+/* style sheet for print goes here */
+
+    table.indic_table { width:100%; border-collapse:collapse; font-family: "Arial"; font-size: 10px; font-weight:normal;}
+
+}
+
+.tab_main_head {font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.tab_head {font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.table_footer{font-family: "Arial"; font-size: 11px; font-weight: bold;}
+.table_str {font-family: "Arial"; font-size: 8px; }
+
+@page {margin-left:2cm; margin-right:1cm;}
+
+ 

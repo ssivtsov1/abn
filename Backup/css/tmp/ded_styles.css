@@ -1,0 +1,48 @@
+/* 
+    Document   : ded_styles
+    Created on : 23 трав 2012, 12:02:52
+    Author     : yu.didovets
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+	.ui-widget {font-family: verdana; font-size: 12px;}
+
+	.ui-jqgrid {font-family: tahoma, arial;}
+	.ui-jqgrid TR.jqgrow TD {font-size: 11px;}
+	.ui-jqgrid TR.jqgrow TD {padding-left: 5px; padding-right: 5px;}
+	.ui-jqgrid TR.jqgrow A {color: blue;}
+
+	.ui-jqgrid INPUT,
+	.ui-jqgrid SELECT,
+	.ui-jqgrid TEXTAREA, 
+	.ui-jqgrid BUTTON {font-family: tahoma, arial; font-size: 11px;}
+        
+        /**
+        * Brighter highlight color
+        */
+        
+        .ui-jqgrid .ui-state-highlight {background: #FFFFCC;}
+        
+        .ui-jqdialog-content .EditTable { background: #DDDDDD; font-size: 12px;}
+        .ui-jqdialog-content .DelTable { font-size: 12px;}
+        
+        .ui-jqgrid .ui-jqgrid-pager {font-size: 12px;}
+        .ui-jqgrid .ui-paging-info {font-size: 12px;}
+        .ui-jqgrid .ui-pg-table td {font-size: 12px;}
+        
+        .ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {  font-size: 12px; font-weight: bold;}
+
+        
+        .btnSel {height:20px; font-weight: bold; vertical-align:middle;}
+        .btnSmall {height:22px; font-weight: bold; vertical-align:top; padding: 2px;}        
+        .btnSmall .ui-button-text {padding:0}
+    
+
+        /* для валидатора форм*/
+        form label.error {color: red; font-style: italic; }
+        input.error { border: 1px dotted red; }
+        form input:focus { border: 1px solid black; }
+
+       .pane {	margin:3px;  background-color: #CCCCCC; border-color: #444444; border-style: solid; border-width:1; padding: 5px;}

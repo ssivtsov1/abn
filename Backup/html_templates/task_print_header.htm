@@ -1,0 +1,71 @@
+
+<table width='720px' cellspacing='0' cellpadding='0' class ='warning_body' >
+  <tr>
+    <td colspan='3' >
+	  <div class='header1' align='center'> {$res_print_name}  <br /> {$res_addr} </div></td>
+  </tr>
+  
+  <tr>
+    <td width='30%' >&nbsp;</td>
+    <td width='40%'> 
+	  <div align='center' class='header2' >ЗАВДАННЯ № : <span class='span_under'> {$doc_num} </span> </div> 
+    </td>
+    <td width='30%' > 
+	  <div align='center' class='header2' ><span class='span_under18'>{$bookcode}</span></div>
+    </td>
+  </tr>
+    <td colspan='3' >
+	  <div class='header3' align='center'> на виконання робіт в електроустановках побутових споживачів </div></td>
+  </tr>
+  
+  <tr>
+    <td colspan='3'> 
+      <span style='width:80px;line-height: 18px; font-size: 14px; display: inline-block;'> За адресою: </span> <span class='span_under_12' style='width:615px;'> {$addr} </span> <br/>
+      <span style='width:80px;line-height: 18px; font-size: 14px; display: inline-block;'> У абонента: </span> <span class='span_under_12' style='width:615px;'> {$abn} тел. {$abn_phone}</span> <br/>
+      <span style='width:80px;line-height: 18px; font-size: 14px; display: inline-block;'> На підставі: </span> <span class='span_under_12' style='width:615px;'>{$reason_txt} </span> <br/>
+      <span class='span_under' style='width:700px;line-height: 15px;'> &nbsp; </span> <br/>      
+<!--
+      <p class='warning_p'> 
+           <b>Необхідно:</b> відключити (підключити) електроустановки до електричних мереж; встановити, замінити, перевірити у квартирі, <br/>
+            на сходовому майданчику лічильник (потрібне підкреслити).
+      </p>
+-->
+      <p class='warning_p' style='line-height: 15px;'> 
+          <b>Подія:</b>  <span class='span_under' style='width:520px;'><b>{$task_kind}</b></span>. 
+      </p>
+      
+      <p class='warning_p' style='line-height: 16px;'> 
+          У споживача встановлено лічильник: № <span class='span_under' style='width:200px;'> &nbsp;{$meter_num} </span> ;
+          тип <span class='span_under' style='width:200px;'> {$meter_type} </span> ;
+      </p>
+      <p class='warning_p' style='line-height: 16px;'> 
+          покази <span class='span_under' style='width:200px;'>&nbsp;{$last_indic}</span> , дата їх знімання: 
+          <span class='span_under' style='width:200px;'>&nbsp;{$last_indic_date}</span>.
+      </p>
+      
+      <p class='warning_p' style='line-height: 15px;'> 
+          Встановлені пломби:  <span class='span_under' style='width:520px;'>&nbsp;{$plomb_list}</span>. 
+      </p>
+      <p class='warning_p' style='line-height: 15px;'> 
+          Дата держповірки лічильника: <span class='span_under' style='width:520px;'>&nbsp;{$meter_check_date}</span>. 
+      </p>
+      
+      <p class='warning_p' style='line-height: 15px;'> 
+          Дата останньої заміни лічильника: <span class='span_under' style='width:500px;'>&nbsp;{$meter_change_date}</span>. 
+      </p>
+
+      <p class='warning_p'> 
+          <span style='width:120px;line-height: 15px;margin-bottom:0px;'>Стан абонента:</span> <span class='span_under' style='width:610px; line-height: 20px; margin-bottom:0px;'>&nbsp;{$abon_state}</span> <br/>
+          <span class='warning_under' style='width:600px;'>(відключений / попереджений про відключення (вказати дату, підставу) / має заборгованість (вказати суму))</span>
+      </p>
+      <p class='warning_p' style='line-height: 12px;'> 
+           <span class='span_under' style='width:695px;'>{$note}&nbsp;</span> 
+      </p>
+      <p class='warning_p'> 
+          Завдання видав: <span class='span_under' style='width:600px; line-height: 16px;'>&nbsp;{$executor}</span> <br/>
+          <span class='warning_under' style='width:400px;'>(посада, П. І. Б., підпис)</span> 
+          <span class='warning_under' style='width:150px;'>(дата)</span> 
+      </p>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,27 @@
+body {background-color: white}
+
+H4 {font-family: "Times New Roman", Times, serif;font-size: 16px;}
+p {font-family: "Times New Roman", Times, serif;font-size: 14px;}
+
+.cell_r {text-align: right;}
+.cell_num {text-align: right; mso-number-format:Standard;}
+.cell_int{text-align: right; mso-number-format:"0";}
+.cell_text{ mso-number-format:"\@";}
+
+.c_r {text-align: right;}
+.c_n {text-align: right; mso-number-format:Standard;}
+.c_i{text-align: right; mso-number-format:"0";}
+.c_t{ mso-number-format:"\@";}
+.c_i_all{
+	font-weight:bold;
+	text-align: right;
+	
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

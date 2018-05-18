@@ -1,0 +1,218 @@
+body {background:#6B8E23; margin:0 auto; padding:5px;font-size: 100%;}
+
+
+input[type="button"] {border:bold 25px #000;}
+
+#jsddm
+{	position: relative;
+        margin: 0 auto;
+	padding: 0}
+	
+	#jsddm li
+	{	float: left;
+		list-style: none;
+		font: 75% Arial; font-weight:600}
+
+	#jsddm li a
+	{	display: block;
+		background: #556B2F;
+		padding: 5px 20px;
+		text-decoration: none;
+		border: 1px solid #556B2F;
+		width: 100%;
+		color: #FFD700;
+		white-space: nowrap}
+
+	#jsddm li a:hover
+	{	background:#6B8E23}
+		
+		#jsddm li ul
+		{	margin: 0;
+			padding: 0;
+			position: absolute;
+			visibility: hidden;
+			border-top: 1px solid #6B8E23;
+			font: 120% Arial; font-weight:600}
+		
+		#jsddm li ul li
+		{	float: none;
+			display: inline}
+		
+		#jsddm li ul li a
+		{	width: auto;
+			background: #6B8E23}
+		
+		#jsddm li ul li a:hover
+		{	background: #6B8E23}
+
+
+#grid_form {	margin-top: 60px; padding-left: 25px}
+#grid_dform {	margin-top: 60px; padding-left:2px}
+#grid_dform1 {	margin-top: 0px; padding-left:0px}
+#grid_dform2 {	margin-top: 10px; padding-left:10px}
+#grid_dform3 {	margin-top: 10px; padding-left:0px}
+
+
+#PF {margin:0;
+        margin-top: 60px; 
+        padding:0px 5px; 
+        border: solid 2px #9ACD32; 
+        height:350px; 
+        width:800px; 
+        background-color:#556B2F;
+        font: 80% Arial; font-weight:600;
+        color: #FFD700;}
+
+#P1 {margin:0;
+        margin-top: 20px; 
+        padding:0px 20px; 
+        border: solid 2px #6B8E23; 
+        height:100px; 
+        width:100px; 
+        background-color:#6B8E23;
+        font: 80% Arial; font-weight:600;
+        color: #FFD700;}
+
+
+#PF2 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 10px 10px; 
+        border: solid 2px #FFD700; 
+        height:450px; 
+        width:620px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF22 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 15px 15px; 
+        border: solid 2px #FFD700; 
+        height:150px; 
+        width:200px; 
+        background-color:#556B2F;
+        font: 80% Arial; font-weight:600;
+        color: #FFD700;}
+
+
+
+#PF2_1 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 10px 10px; 
+        border: solid 2px #FFD700; 
+        height:300px; 
+        width:500px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF3 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 10px 10px; 
+        border: solid 2px #FFD700; 
+        height:300px; 
+        width:300px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF4 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 10px 10px; 
+        border: solid 2px #FFD700; 
+        height:500px; 
+        width:500px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+
+#Paccnt_f{ margin: 0 auto;padding: 0;}
+
+
+#jsddm2
+{	margin: 0 auto;
+	padding: 0}
+	
+	#jsddm2 li
+	{	float: left;
+		list-style: none;
+		font: 75% Arial; font-weight:600}
+
+	#jsddm2 li a
+	{	display: block;
+		background: #556B2F;
+		padding: 5px 20px;
+		text-decoration: none;
+		border: 1px solid #556B2F;
+		width: 100%;
+		color: #FFD700;
+		white-space: nowrap}
+
+	#jsddm2 li a:hover
+	{	background: #6B8E23}
+		
+		#jsddm li ul
+		{	margin: 0;
+			padding: 0;
+			position: absolute;
+			visibility: hidden;
+			border-top: 1px solid #6B8E23;
+			font: 120% Arial; font-weight:600}
+
+#doc_l {	margin: 30px;
+	padding: 0}
+#adm_l {	margin: 30px;
+	padding: 0}
+#dov_l {	margin: 30px;
+	padding: 0}
+#help_l {	margin: 30px;
+	padding: 0}
+
+#PF1 {margin:0;
+        margin-top: 60px; 
+        padding:0; 
+        border: solid 2px #FFD700; 
+        height:500px; 
+        width:800px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF0_1 {margin:0;
+        margin-top: 40px; 
+        padding:0; 
+        border: solid 2px #FFD700; 
+        height:610px; 
+        width:940px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF1_1 {margin:0;
+        margin-top: 60px; 
+        margin-left: 60px; 
+        padding: 10px 10px;
+        border: solid 2px #FFD700; 
+        height:450px; 
+        width:800px; 
+        background-color:#556B2F;
+        font: 70% Arial; font-weight:600;
+        color: #FFD700;}
+
+#PF_111 {margin:0;
+        margin-top: 60px; 
+        padding:0; 
+        border: solid 2px #FFD700; 
+        height:450px; 
+        width:1050px; 
+        background-color:#556B2F;
+        font: 80% Arial; font-weight:600;
+        color: #FFD700;}
+
+
